@@ -4,25 +4,42 @@
   "description": "The RICA INC application for selling online and advertising their services",
   "main": "index.js",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.19",
+    "morgan": "^1.10.0",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.3",
     "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
-    "@babel/node": "^7.6.2",
-    "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/register": "^7.6.2"
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.5",
+    "@babel/runtime": "^7.10.5",
+    "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "createtables": "sequelize db:migrate",
-    "seed": "sequelize db:seed:all",
-    "droptables": "sequelize db:migrate:undo:all"
+    "start": "cross-env NODE_ENV=development && babel-node ./server/index.js",
+    "dev": "cross-env NODE_ENV=development && nodemon --exec babel-node ./server/index.js",
+    "create-db": "npx sequelize-cli db:create",
+    "drop-db": "npx sequelize-cli db:drop",
+    "migrations": "npx sequelize-cli db:migrate",
+    "undo": "npx sequelize-cli db:migrate:undo:all",
+    "seed": "npx sequelize-cli db:seed:all",
+    "undo-seed": "npx sequelize-cli db:seed:undo"
   },
   "repository": {
     "type": "git",
