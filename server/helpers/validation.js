@@ -12,7 +12,6 @@ invalidFirstname,
 invalidGender,
 invalidLastname,
 invalidPassword,
-invalidUsername,
 } = customMessages;
 
 
@@ -39,7 +38,6 @@ const validateSignup = (user) => {
     const schema = Joi.object({
       firstName: validationMethods(/^([a-zA-Z]{3,})+$/, { 'string.pattern.base': `${invalidFirstname}` }),
       lastName: validationMethods(/^([a-zA-Z]{3,})+$/, { 'string.pattern.base': `${invalidLastname}` }),
-      userName: validationMethods(/^([a-zA-Z0-9@_.-]{3,})+$/, { 'string.pattern.base': `${invalidUsername}` }),
       email: validationMethods(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, { 'string.pattern.base': `${invalidEmail}` }),
       password: validationMethods(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?])[0-9a-zA-Z!@#$%^&*?]{8,}$/, { 'string.pattern.base': `${invalidPassword}` }),
       gender: validationMethods(/^Male$|^male$|^Female$|^female$/, { 'string.pattern.base': `${invalidGender}` }),
@@ -50,8 +48,19 @@ const validateSignup = (user) => {
       allowUnknown: true
     });
   };
+  const validateLogin = (user) => {
+    const schema = Joi.object({
+      email: validationMethods(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, { 'string.pattern.base': `${invalidEmail}` }),
+      password: validationMethods(/^/, { 'string.pattern.base': `${invalidPassword}` }),
+    });
+    return schema.validate(user, {
+      abortEarly: false,
+      allowUnknown: true
+    });
+  };
 
   export {
       displayErrorMessages,
-      validateSignup
+      validateSignup,
+      validateLogin,
   }
