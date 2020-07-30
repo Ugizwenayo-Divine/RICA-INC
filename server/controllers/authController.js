@@ -24,10 +24,9 @@ export default class AuthenticationController {
 
   static async signUp(req, res) {
     const payload = req.body;
-    const { email, userName } = req.body;
+    const { email } = req.body;
     const checkEmail = await userExists('email', email.toLowerCase());
-    const checkUsername = await userExists('userName', userName);
-    if (checkEmail || checkUsername) {
+    if (checkEmail) {
       return errorResponse(res, statusCodes.conflict, alreadyExistEmailOrUsername);
     }
     const password = await passwordHasher(payload.password);
@@ -35,9 +34,14 @@ export default class AuthenticationController {
     const userData = { ...dataWithoutPassword, password };
     userData.email= convertToLowerCase(userData.email);
     const savedUser = await saveUser(userData);
-    const savedUserObject = _.omit(saveUser, 'password');
+    const savedUserObject = _.omit(savedUser, 'password');
     const token = await generateToken(savedUserObject);
     return successResponse(res, statusCodes.created, userSignupSuccess, token);
   }
+  static userLogin = async (req, res) => {
+    const { loginUser } = req;
+    const token = await generateToken(loginUser);
+    successResponse(res, statusCodes.ok, customMessages.loginSuccess, token);
+  };
 
 }

@@ -20,7 +20,6 @@ class UserServices {
         fields: [
             'firstName',
             'lastName',
-            'userName',
             'email',
             'password',
             'gender',
@@ -33,5 +32,6 @@ class UserServices {
     );
     return dataValues;
   }
+  
 }
 export default UserServices;
