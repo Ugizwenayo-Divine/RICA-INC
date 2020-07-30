@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
-import { validateSignup, displayErrorMessages, validateLogin } from '../helpers/validation';
+import _ from 'lodash';
+import { validateSignup, displayErrorMessages, validateLogin, validateRole } from '../helpers/validation';
 import userService from '../services/authServices';
 import responseHandler from '../helpers/responseHandler';
 import statusCodes from '../helpers/statusCode';
@@ -23,9 +24,9 @@ const {
 } = authHelpers;
 
 const signupValidation = async (req, res, next) => {
-    const { error } = validateSignup(req.body);
-    displayErrorMessages(error, res, next);
-  };
+  const { error } = validateSignup(req.body);
+  displayErrorMessages(error, res, next);
+};
 
 const loginValidation = async (req, res, next) => {
   const { error } = validateLogin(req.body);
@@ -41,11 +42,14 @@ const checkUserExistance = async (req,res,next) => {
       if(!password){
         return errorResponse(res, forbidden, wrongcredentials);
       }
-      req.loginUser = req.body;
+      req.loginUser = _.omit(dataValues,'password');
       return next();
     }
     return errorResponse(res, forbidden, wrongcredentials);
-
 }
+const roleValidation = async (req, res, next) => {
+  const { error } = validateRole(req.body);
+  displayErrorMessages(error, res, next);
+};
 
-export default { signupValidation, checkUserExistance, loginValidation };
+export default { signupValidation, checkUserExistance, loginValidation, roleValidation  };

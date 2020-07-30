@@ -32,6 +32,25 @@ class UserServices {
     );
     return dataValues;
   }
-  
+  static updateType = async (newData) => {
+    const updateType = await User.update(
+        { type: newData.type }, 
+        { where: { email: newData.email } }
+    );
+      return updateType;
+  }
+
+  static deleteUser = async (newData) => {
+    const deletedUser = await User.destroy(
+        { where: { id: newData.id } }
+    );
+      return deletedUser;
+  }
+
+  static findAllUsers = async () => {
+    const deletedUser = await User.findAll();
+      return deletedUser;
+  }
+
 }
 export default UserServices;

@@ -12,6 +12,7 @@ invalidFirstname,
 invalidGender,
 invalidLastname,
 invalidPassword,
+invalidType,
 } = customMessages;
 
 
@@ -58,9 +59,23 @@ const validateSignup = (user) => {
       allowUnknown: true
     });
   };
+  const validateRole = (data) => {
+    const schema = Joi.object({
+      type: validationMethods(
+        /^client$|^Client$|^admin$|^Admin$/,
+        { 'string.pattern.base': `${invalidType}` }
+      ),
+      email: validationMethods(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, { 'string.pattern.base': `${invalidEmail}` })
+    });
+    return schema.validate(data, {
+      abortEarly: false,
+      allowUnknown: true
+    });
+  };;
 
   export {
       displayErrorMessages,
       validateSignup,
       validateLogin,
+      validateRole,
   }
