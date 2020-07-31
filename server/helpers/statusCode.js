@@ -6,6 +6,7 @@ const codes = {
     notFound: 404,
     conflict: 409,
     forbidden: 403,
+    unSupportedMedia: 415,
   };
   
   export default codes;

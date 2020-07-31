@@ -25,7 +25,7 @@ class UserServices {
             'gender',
             'phoneNumber',
             'type',
-            'createAt',
+            'createdAt',
             'updatedAt',
         ]
       }
@@ -48,8 +48,8 @@ class UserServices {
   }
 
   static findAllUsers = async () => {
-    const deletedUser = await User.findAll();
-      return deletedUser;
+    const allUsers = await User.findAll();
+      return allUsers;
   }
 
 }
