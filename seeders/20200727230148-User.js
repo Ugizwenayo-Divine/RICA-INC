@@ -1,6 +1,13 @@
+import authHelpers from '../server/helpers/authHelper';
+
 const dummy1 = {
-  name: 'Manzi Guevara',
-  email: 'manziguevara@gmail.com',
+  firstName: 'Manzi',
+  lastName: 'Guevara',
+  email: 'manzi@gmail.com',
+  gender: 'male',
+  password: 'Manzi@2020',
+  type: 'admin',
+  phoneNumber: '0788547962',
   createdAt: new Date(),
   updatedAt: new Date(),
 };

@@ -9,5 +9,14 @@ const responseMessage={
     invalidPassword: 'Password should consists of alphabets, capital letter, special characters, numbers and at least 8 characters minimum',
     invalidPhoneNumber: 'PhoneNumber should consists of numbers, without whitespace or special characters and start with 078',
     wrongcredentials: 'the email or password is incorrect',
+    invalidType: 'user type must be client or admin',
+    tokenMissing: 'the token is missing',
+    tokenInvalid: 'the token is invalid',
+    notAllowed: 'you are not allowed for this service',
+    notUserExist: 'the user does not exist',
+    sameType: 'That is the existing type',
+    typeAssigned: 'the type is successfully assigned',
+    userDeleted: 'successfully deleted',
+    allUsers: 'All stored users',
 };
 export default responseMessage;

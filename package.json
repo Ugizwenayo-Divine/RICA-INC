@@ -32,6 +32,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "admin": "cross-env NODE_ENV=development && babel-node ./server/scripts/insertAdmin.js",
     "start": "cross-env NODE_ENV=development && babel-node ./server/index.js",
     "dev": "cross-env NODE_ENV=development && nodemon --exec babel-node ./server/index.js",
     "create-db": "npx sequelize-cli db:create",
