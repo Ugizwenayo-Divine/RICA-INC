@@ -110,7 +110,7 @@ const validateProducts = (data) => {
     category: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': `${invalidCategory}`,
     }),
-    price: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    price: validationMethods(/^\d+(?:[.,]\d+)*$/, {
       'string.pattern.base': `${invalidPrice}`,
     }),
     brand: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
@@ -122,32 +122,36 @@ const validateProducts = (data) => {
     allowUnknown: true,
   });
 };
+const validateSearchName = (data) => {
+  const schema = Joi.object({
+    name: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': `${invalidName}`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
+const validateSearchCategory = (data) => {
+  const schema = Joi.object({
+    category: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': `${invalidName}`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
 
-export { displayErrorMessages, validateSignup, validateLogin, validateRole, validateNews };
-const schema = Joi.object({
-  firstName: validationMethods(/^([a-zA-Z]{3,})+$/, {
-    'string.pattern.base': `${invalidFirstname}`,
-  }),
-  lastName: validationMethods(/^([a-zA-Z]{3,})+$/, {
-    'string.pattern.base': `${invalidLastname}`,
-  }),
-  email: validationMethods(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, {
-    'string.pattern.base': `${invalidEmail}`,
-  }),
-  password: validationMethods(
-    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?])[0-9a-zA-Z!@#$%^&*?]{8,}$/,
-    { 'string.pattern.base': `${invalidPassword}` }
-  ),
-  gender: validationMethods(/^Male$|^male$|^Female$|^female$/, {
-    'string.pattern.base': `${invalidGender}`,
-  }),
-  phoneNumber: validationMethods(/^(078)([0-9]{7})$/, {
-    'string.pattern.base': `${invalidPhoneNumber}`,
-  }),
-});
-return schema.validate(user, {
-  abortEarly: false,
-  allowUnknown: true,
-});
-
-export { displayErrorMessages, validateSignup, validateLogin, validateRole, validateProducts };
+export {
+  displayErrorMessages,
+  validateSignup,
+  validateLogin,
+  validateRole,
+  validateNews,
+  validateProducts,
+  validateSearchName,
+  validateSearchCategory,
+};

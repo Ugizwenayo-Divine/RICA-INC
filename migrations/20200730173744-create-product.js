@@ -34,6 +34,9 @@ module.exports = {
       brand: {
         type: Sequelize.STRING,
       },
+      cloudinaryId: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
