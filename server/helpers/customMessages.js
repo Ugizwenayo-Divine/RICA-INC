@@ -16,7 +16,17 @@ const responseMessage={
     notUserExist: 'the user does not exist',
     sameType: 'That is the existing type',
     typeAssigned: 'the type is successfully assigned',
-    userDeleted: 'successfully deleted',
+    deleted: 'successfully deleted',
     allUsers: 'All stored users',
+    successCreation: 'Successfully created',
+    error: 'There occured an error',
+    invalidTitle: 'The title must not be empty and must be greater than 3',
+    invalidDescription: 'the description must not be empty and must be greater thean 3',
+    selectImage: 'Please select atleast one image',
+    wrongType: 'Please select the right type of image',
+    allNews: 'All available news',
+    news: 'That is news you requested',
+    noNews: 'That news does not exist',
+    newsExist: 'The news with that title exist',
 };
 export default responseMessage;

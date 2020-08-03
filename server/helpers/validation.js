@@ -13,6 +13,8 @@ invalidGender,
 invalidLastname,
 invalidPassword,
 invalidType,
+invalidDescription,
+invalidTitle,
 } = customMessages;
 
 
@@ -71,11 +73,22 @@ const validateSignup = (user) => {
       abortEarly: false,
       allowUnknown: true
     });
-  };;
+  };
+  const validateNews = (data) => {
+    const schema = Joi.object({
+      title: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidTitle }),
+      description: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidDescription }),
+    });
+    return schema.validate(data, {
+      abortEarly: false,
+      allowUnknown: true
+    });
+  };
 
   export {
       displayErrorMessages,
       validateSignup,
       validateLogin,
       validateRole,
+      validateNews,
   }

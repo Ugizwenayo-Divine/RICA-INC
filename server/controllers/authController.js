@@ -23,7 +23,7 @@ alreadyExistEmailOrUsername,
 userSignupSuccess,
 sameType,
 typeAssigned,
-userDeleted,
+deleted,
 allUsers,
 } = customMessages;
 const {
@@ -71,7 +71,7 @@ export default class AuthenticationController {
       id,
     }
     await deleteUser(data);
-    return responseHandlers.successResponse(res, ok, userDeleted);
+    return responseHandlers.successResponse(res, ok, deleted);
   };
   static allUsers = async (req, res) => {
     const users = await findAllUsers();
