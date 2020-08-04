@@ -18,6 +18,8 @@ const {
   invalidCategory,
   invalidPrice,
   invalidBrand,
+  invalidAdverType,
+  invalidAdvertCompany,
 } = customMessages;
 
 const { errorResponse } = responseHandlers;
@@ -144,6 +146,18 @@ const validateSearchCategory = (data) => {
     allowUnknown: true,
   });
 };
+const validateAdvertisement = (data) => {
+  const schema = Joi.object({
+    title: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidTitle }),
+    description: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidDescription }),
+    type: validationMethods(/^internal$|^Internal$|^external$|^External$/, { 'string.pattern.base': `${invalidAdverType}` }),
+    advertisingCompany: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidAdvertCompany }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true
+  });
+};
 
 export {
   displayErrorMessages,
@@ -154,4 +168,5 @@ export {
   validateProducts,
   validateSearchName,
   validateSearchCategory,
+  validateAdvertisement,
 };

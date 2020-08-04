@@ -8,15 +8,15 @@ import newsChecker from '../../middleware/newsChecker';
 const multipart = multiparty();
 
 const {
-    addNews,
-    getAll,
-    getOneNews,
-    deleteOneNews,
-    newsUpdation,
+  addNews,
+  getAll,
+  getOneNews,
+  deleteOneNews,
+  newsUpdation,
 } = NewsController;
 const {
-    isUserLoggedIn,
-    isUserAdmin,
+  isUserLoggedIn,
+  isUserAdmin,
 } = authentication;
 const {
   createNewsValidation,

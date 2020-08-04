@@ -18,15 +18,15 @@ class UserServices {
       },
       {
         fields: [
-            'firstName',
-            'lastName',
-            'email',
-            'password',
-            'gender',
-            'phoneNumber',
-            'type',
-            'createdAt',
-            'updatedAt',
+          'firstName',
+          'lastName',
+          'email',
+          'password',
+          'gender',
+          'phoneNumber',
+          'type',
+          'createdAt',
+          'updatedAt',
         ]
       }
     );
@@ -34,22 +34,22 @@ class UserServices {
   }
   static updateType = async (newData) => {
     const updateType = await User.update(
-        { type: newData.type }, 
-        { where: { email: newData.email } }
+      { type: newData.type }, 
+      { where: { email: newData.email } }
     );
-      return updateType;
+    return updateType;
   }
 
   static deleteUser = async (newData) => {
     const deletedUser = await User.destroy(
-        { where: { id: newData.id } }
+      { where: { id: newData.id } }
     );
-      return deletedUser;
+    return deletedUser;
   }
 
   static findAllUsers = async () => {
     const allUsers = await User.findAll();
-      return allUsers;
+    return allUsers;
   }
 
 }

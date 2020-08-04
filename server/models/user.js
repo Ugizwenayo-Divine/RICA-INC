@@ -13,11 +13,16 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       }),
-        User.hasMany(models.Product, {
-          foreignKey: 'userId',
-          onDelete: 'CASCADE',
-          onUpdate: 'CASCADE',
-        });
+      User.hasMany(models.Product, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
+      User.hasMany(models.Advertisement, {
+        foreignKey: 'advertisedBy',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
     }
   }
   User.init(

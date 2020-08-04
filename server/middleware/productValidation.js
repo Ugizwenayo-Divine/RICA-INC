@@ -25,10 +25,10 @@ const updateProductValidation = async (req, res, next) => {
   let price = keys.find((key) => key == 'price');
   let brand = keys.find((key) => key == 'brand');
   const data = {
-    name: name ? req.body.name : product.name,
-    category: category ? req.body.category : product.category,
-    price: price ? req.body.price : product.price,
-    brand: brand ? req.body.brand : product.brand,
+    name: name ? req.body.name : products.name,
+    category: category ? req.body.category : products.category,
+    price: price ? req.body.price : products.price,
+    brand: brand ? req.body.brand : products.brand,
   };
   const { error } = validateProducts(data);
   displayErrorMessages(error, res, next);

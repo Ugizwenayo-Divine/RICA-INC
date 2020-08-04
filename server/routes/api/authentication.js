@@ -4,22 +4,22 @@ import authMiddlewares from '../../middleware/authValidation';
 import userAuthentication from '../../middleware/authentication';
 
 const { 
-    signUp,
-    userLogin,
-    updateUserType,
-    userDeletion,
-    allUsers,
+  signUp,
+  userLogin,
+  updateUserType,
+  userDeletion,
+  allUsers,
 } = authController;
 const {
-    isUserAdmin,
-    isUserLoggedIn,
-    doesUserExist,
+  isUserAdmin,
+  isUserLoggedIn,
+  doesUserExist,
 } = userAuthentication;
 const {
-    loginValidation,
-    signupValidation,
-    checkUserExistance,
-    roleValidation
+  loginValidation,
+  signupValidation,
+  checkUserExistance,
+  roleValidation
 } = authMiddlewares;
 const authenticationRouter = express.Router();
 
@@ -28,4 +28,5 @@ authenticationRouter.post('/login', loginValidation, checkUserExistance, userLog
 authenticationRouter.patch('/update-user',isUserLoggedIn, isUserAdmin, roleValidation, doesUserExist, updateUserType);
 authenticationRouter.delete('/delete-user/:id',isUserLoggedIn, isUserAdmin, doesUserExist, userDeletion);
 authenticationRouter.get('/all',isUserLoggedIn, isUserAdmin, allUsers);
+
 export default authenticationRouter;
