@@ -9,17 +9,7 @@ cloudinary.config({
   api_secret: CLOUDINARY_API_SECRET,
 });
 const extensions = ['jpg', 'jpeg', 'png', 'bmp', 'gif', 'PNG', 'JPG'];
-/**
- * This class contains
- * all methods required to save
- * the accommodation's data
- */
 class ImageUploader {
-  /**
-   *
-   * @param {*} images
-   * @returns {string} url
-   */
   static async uploadImage(image) {
     const imgExt = image.name.split('.').pop();
     if (extensions.includes(imgExt)) {
@@ -29,11 +19,6 @@ class ImageUploader {
     return null;
   }
 
-  /**
-   *
-   * @param {*} images
-   * @returns {string} url
-   */
   static async uploader(image) {
     let uploaded;
     let combinedLinks = '';
