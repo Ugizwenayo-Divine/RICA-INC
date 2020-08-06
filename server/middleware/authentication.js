@@ -17,8 +17,7 @@ const isUserLoggedIn = async (req, res, next) => {
   try {
     const decodedToken = await decodeToken(token);
     const user = await userExists('email', decodedToken.email);
-    const { dataValues } = user;
-    if (!user || dataValues.type != 'admin') {
+    if (!user) {
       return errorResponse(res, unAuthorized, notAllowed);
     }
     req.sessionUser = decodedToken;
