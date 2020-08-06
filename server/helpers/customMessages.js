@@ -48,5 +48,10 @@ const responseMessage = {
   noAdvertisement: 'The advertisement does not exist',
   invalidAdverType: 'advertisement type must internal or external',
   invalidAdvertCompany: 'The company name should consists of alphabets',
+  advertisementExist: 'That advertisement already exists!!!',
+  allFeedback: 'All stored feedback from different users',
+  feedbackNotExist: 'that feedback does not exist',
+  feedbackExists: 'that feedback already exists',
+  notCreated: 'feedBack not created',
 };
 export default responseMessage;

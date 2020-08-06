@@ -25,6 +25,7 @@ const {
     allAdvertisement,
     advertisement,
     deleted,
+    advertisementExist,
 } = responseMessage;
 const {
     badRequest,
@@ -72,7 +73,7 @@ class AdvertisementController {
  
     }
     catch(err){
-      return errorResponse(res,badRequest,error);
+      return errorResponse(res,badRequest,advertisementExist);
     }
   }
   static getAll = async (req, res) => {

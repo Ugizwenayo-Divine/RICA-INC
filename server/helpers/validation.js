@@ -158,6 +158,15 @@ const validateAdvertisement = (data) => {
     allowUnknown: true
   });
 };
+const validateFeedback = (data) => {
+  const schema = Joi.object({
+    feedback: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidDescription }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true
+  });
+};
 
 export {
   displayErrorMessages,
@@ -169,4 +178,5 @@ export {
   validateSearchName,
   validateSearchCategory,
   validateAdvertisement,
+  validateFeedback,
 };

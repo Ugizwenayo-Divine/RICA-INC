@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
+      User.hasOne(models.Feedback, {
+        foreignKey: 'createdBy',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
     }
   }
   User.init(
