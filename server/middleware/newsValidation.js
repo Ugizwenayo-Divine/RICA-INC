@@ -1,5 +1,4 @@
 import { validateNews, displayErrorMessages } from '../helpers/validation';
-import news from '../models/news';
 
 const createNewsValidation = async (req, res, next) => {
   const { error } = validateNews(req.body);

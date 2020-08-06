@@ -43,5 +43,10 @@ const responseMessage = {
   productCategoryFound: 'Product category successfully found',
   noproducts: 'That product does not exist',
   productExist: 'The product with that name already exist',
+  allAdvertisement: 'All available advertisement',
+  advertisement: 'The advertisement requested',
+  noAdvertisement: 'The advertisement does not exist',
+  invalidAdverType: 'advertisement type must internal or external',
+  invalidAdvertCompany: 'The company name should consists of alphabets',
 };
 export default responseMessage;
