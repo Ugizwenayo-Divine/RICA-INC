@@ -14,6 +14,8 @@ const {
   productNameFound,
   products,
   deleted,
+  best,
+  notBest,
 } = responseMessage;
 const { badRequest, unSupportedMedia, ok } = statusCode;
 
@@ -39,32 +41,22 @@ class ProductController {
             error: 'Please select the right type of image',
           });
         } else null;
-        const { name, category, price, brand } = req.body;
-        const status = 'available';
+        const { name, category, price, brand, due_time, quantity } = req.body;
         const datas = await productHelper.saveProduct({
           userId: id,
           name,
           category,
-          price: `${price}Rwf`,
+          price: `${price} RWF`,
+          quantity,
           image: image.url,
           brand,
-          status,
+          due_time,
           cloudinaryId: image.public_id,
         });
         return res.status(201).json({
           status: 201,
           message: 'Product Successfully Added',
-          data: {
-            name: datas.name,
-            category: datas.category,
-            price: datas.price,
-            image: datas.image,
-            brand: datas.brand,
-            status: datas.status,
-            cloudinaryId: datas.cloudinaryId,
-            createdAt: datas.createdAt,
-            updatedAt: datas.updatedAt,
-          },
+          data: datas,
         });
       }
       return res.status(401).json({
@@ -136,7 +128,6 @@ class ProductController {
       await ProductHelper.deleteProduct(id);
       return successResponse(res, ok, deleted, null, null);
     } catch (err) {
-      console.log(products.cloudinaryId);
       return errorResponse(res, badRequest, error);
     }
   };
@@ -162,10 +153,10 @@ class ProductController {
         id,
         name: req.body.name || products.name,
         category: req.body.category || products.category,
-        price: req.body.price || products.price,
+        price: `${req.body.price || products.price} RWF`,
+        quantity: req.body.quantity || products.quantity,
         image: imageUrl || products.image,
         brand: req.body.brand || products.brand,
-        status: req.body.status || products.status,
         cloudinaryId: imageId || products.cloudinaryId,
       };
       await ProductHelper.updateProduct(newData);
@@ -174,5 +165,54 @@ class ProductController {
       return errorResponse(res, badRequest, error);
     }
   };
+  static addRemoveToBestProducts = async (req, res) => {
+    try{
+      const {type} = req.body;
+      const {id} = req.params;
+      const data ={
+        id,
+        type,
+      }
+      await ProductHelper.addRemoveToBestProducts(data);
+      return successResponse(res, ok, notBest, null, null);
+    }
+    catch(err){
+      return errorResponse(res, badRequest, err.message);
+    }
+  };
+  static getAllProductTypeBased = async (req, res) => {
+    const {type} = req.query
+    try{
+      const products = await ProductHelper.getAllBestProducts(type);
+      return successResponse(res, ok, 'All requested products', null, products);
+    }
+    catch(err){
+      return errorResponse(res, badRequest, err.message);
+    }
+  };
+  static getAllAvailableProducts = async (req, res) => {
+    try{
+      const products = await ProductHelper.getAllAvailableProducts();
+      return successResponse(res, ok, 'All available products', null, products);
+    }
+    catch(err){
+      return errorResponse(res, badRequest, err.message);
+    }
+  }
+  static addProductQuantity = async (req, res) => {
+    const {id} = req.params;
+    const {products} = req;
+    const product ={
+      id,
+      quantity: parseInt(products.quantity) + parseInt(req.body.quantity)
+    }
+    try{
+      const products = await ProductHelper.insertProductQuantity(product);
+      return successResponse(res, ok, 'Quantity inserted', null, products);
+    }
+    catch(err){
+      return errorResponse(res, badRequest, err.message);
+    }
+  }
 }
 export default ProductController;

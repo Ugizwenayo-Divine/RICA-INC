@@ -5,6 +5,9 @@ import productRouter from './product';
 import advertisementRouter from './advertisement';
 import feedbackRouter from './feedback';
 import announcementRouter from './announcement';
+import ordersRouter from './orders';
+import paymentRouter from './payment';
+import historyRouter from './history';
 
 const apiRouter = express.Router();
 
@@ -14,5 +17,8 @@ apiRouter.use('/product', productRouter);
 apiRouter.use('/advertisement', advertisementRouter);
 apiRouter.use('/feedback', feedbackRouter);
 apiRouter.use('/announcement', announcementRouter);
+apiRouter.use('/orders', ordersRouter);
+apiRouter.use('/payment', paymentRouter);
+apiRouter.use('/history', historyRouter);
 
 export default apiRouter;

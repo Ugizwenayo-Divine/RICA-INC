@@ -13,6 +13,8 @@ const {
   searchProductName,
   searchProductCategory,
   updateProductValidation,
+  validateBestProducts,
+  validateQuantity,
 } = productValidation;
 
 const { doesProductExist, doesProductNameExist } = productChecker;
@@ -30,7 +32,6 @@ productRouter.post(
 productRouter.get('/', ProductController.getAll);
 productRouter.get('/searchname', searchProductName, ProductController.searchName);
 productRouter.get('/searchcategory', searchProductCategory, ProductController.searchCategory);
-productRouter.get('/:id', doesProductExist, ProductController.getOneProduct);
 productRouter.delete(
   '/:id',
   isUserLoggedIn,
@@ -47,5 +48,10 @@ productRouter.patch(
   updateProductValidation,
   ProductController.productUpdation
 );
+productRouter.patch('/add-quantity/:id', isUserLoggedIn, isUserAdmin, doesProductExist, validateQuantity, ProductController.addProductQuantity);
+productRouter.patch('/best/:id', isUserLoggedIn, isUserAdmin, doesProductExist, validateBestProducts, ProductController.addRemoveToBestProducts);
+productRouter.get('/available', isUserLoggedIn, isUserAdmin, ProductController.getAllAvailableProducts);
+productRouter.get('/product-type', isUserLoggedIn, isUserAdmin, ProductController.getAllProductTypeBased);
+productRouter.get('/:id', doesProductExist, ProductController.getOneProduct);
 
 export default productRouter;

@@ -9,6 +9,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Product.belongsTo(models.User, { foreignKey: 'userId' });
+      Product.hasOne(models.Orders, {
+        foreignKey: 'productId',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
     }
   }
   Product.init(
@@ -17,10 +22,12 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       category: DataTypes.STRING,
       price: DataTypes.STRING,
+      quantity: DataTypes.INTEGER,
       image: DataTypes.STRING,
       brand: DataTypes.STRING,
-      status: DataTypes.ENUM('available', 'sold'),
+      type: DataTypes.ENUM('normal', 'best'),
       cloudinaryId: DataTypes.STRING,
+      due_time: DataTypes.INTEGER
     },
     {
       sequelize,

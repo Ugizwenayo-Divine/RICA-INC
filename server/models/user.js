@@ -23,8 +23,18 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
-      User.hasOne(models.Feedback, {
+      User.hasMany(models.Feedback, {
         foreignKey: 'createdBy',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
+      User.hasMany(models.Orders, {
+        foreignKey: 'orderedBy',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
+      User.hasMany(models.Transaction, {
+        foreignKey: 'transactedBy',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
