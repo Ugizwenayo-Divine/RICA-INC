@@ -11,7 +11,7 @@ class ProductHelper {
         updatedAt: new Date(),
       },
       {
-        fields: ['userId', 'name', 'category', 'price', 'image', 'brand', 'cloudinaryId'],
+        fields: ['userId', 'name', 'category', 'price', 'image', 'brand', 'status', 'cloudinaryId'],
       }
     );
 

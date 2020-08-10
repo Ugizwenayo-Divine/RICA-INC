@@ -40,6 +40,7 @@ class ProductController {
           });
         } else null;
         const { name, category, price, brand } = req.body;
+        const status = 'available';
         const datas = await productHelper.saveProduct({
           userId: id,
           name,
@@ -47,6 +48,7 @@ class ProductController {
           price: `${price}Rwf`,
           image: image.url,
           brand,
+          status,
           cloudinaryId: image.public_id,
         });
         return res.status(201).json({
@@ -58,6 +60,7 @@ class ProductController {
             price: datas.price,
             image: datas.image,
             brand: datas.brand,
+            status: datas.status,
             cloudinaryId: datas.cloudinaryId,
             createdAt: datas.createdAt,
             updatedAt: datas.updatedAt,
@@ -162,6 +165,7 @@ class ProductController {
         price: req.body.price || products.price,
         image: imageUrl || products.image,
         brand: req.body.brand || products.brand,
+        status: req.body.status || products.status,
         cloudinaryId: imageId || products.cloudinaryId,
       };
       await ProductHelper.updateProduct(newData);

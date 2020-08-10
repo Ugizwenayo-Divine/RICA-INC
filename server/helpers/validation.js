@@ -20,6 +20,7 @@ const {
   invalidBrand,
   invalidAdverType,
   invalidAdvertCompany,
+  invalidAnnouncement,
 } = customMessages;
 
 const { errorResponse } = responseHandlers;
@@ -92,10 +93,10 @@ const validateRole = (data) => {
 };
 const validateNews = (data) => {
   const schema = Joi.object({
-    title: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    title: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': invalidTitle,
     }),
-    description: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': invalidDescription,
     }),
   });
@@ -106,16 +107,16 @@ const validateNews = (data) => {
 };
 const validateProducts = (data) => {
   const schema = Joi.object({
-    name: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    name: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': `${invalidName}`,
     }),
-    category: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    category: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': `${invalidCategory}`,
     }),
     price: validationMethods(/^\d+(?:[.,]\d+)*$/, {
       'string.pattern.base': `${invalidPrice}`,
     }),
-    brand: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    brand: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': `${invalidBrand}`,
     }),
   });
@@ -126,7 +127,7 @@ const validateProducts = (data) => {
 };
 const validateSearchName = (data) => {
   const schema = Joi.object({
-    name: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    name: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': `${invalidName}`,
     }),
   });
@@ -137,7 +138,7 @@ const validateSearchName = (data) => {
 };
 const validateSearchCategory = (data) => {
   const schema = Joi.object({
-    category: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, {
+    category: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': `${invalidName}`,
     }),
   });
@@ -148,23 +149,47 @@ const validateSearchCategory = (data) => {
 };
 const validateAdvertisement = (data) => {
   const schema = Joi.object({
-    title: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidTitle }),
-    description: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidDescription }),
-    type: validationMethods(/^internal$|^Internal$|^external$|^External$/, { 'string.pattern.base': `${invalidAdverType}` }),
-    advertisingCompany: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidAdvertCompany }),
+    title: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': invalidTitle,
+    }),
+    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': invalidDescription,
+    }),
+    type: validationMethods(/^internal$|^Internal$|^external$|^External$/, {
+      'string.pattern.base': `${invalidAdverType}`,
+    }),
+    advertisingCompany: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': invalidAdvertCompany,
+    }),
   });
   return schema.validate(data, {
     abortEarly: false,
-    allowUnknown: true
+    allowUnknown: true,
   });
 };
 const validateFeedback = (data) => {
   const schema = Joi.object({
-    feedback: validationMethods(/^([a-zA-Z0-9_ !@#$%^&*?-]{1,})+$/, { 'string.pattern.base': invalidDescription }),
+    feedback: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': invalidDescription,
+    }),
   });
   return schema.validate(data, {
     abortEarly: false,
-    allowUnknown: true
+    allowUnknown: true,
+  });
+};
+const validateAnnouncement = (data) => {
+  const schema = Joi.object({
+    title: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': `${invalidTitle}`,
+    }),
+    announcement: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': `${invalidAnnouncement}`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
   });
 };
 
@@ -179,4 +204,5 @@ export {
   validateSearchCategory,
   validateAdvertisement,
   validateFeedback,
+  validateAnnouncement,
 };

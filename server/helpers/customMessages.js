@@ -31,6 +31,7 @@ const responseMessage = {
   error: 'There occured an error',
   invalidTitle: 'The title must not be empty and must be greater than 3',
   invalidDescription: 'the description must not be empty and must be greater thean 3',
+  invalidAnnouncement: 'the description must not be empty and must be greater thean 3',
   selectImage: 'Please select atleast one image',
   wrongType: 'Please select the right type of image',
   allNews: 'All available news',
@@ -53,5 +54,9 @@ const responseMessage = {
   feedbackNotExist: 'that feedback does not exist',
   feedbackExists: 'that feedback already exists',
   notCreated: 'feedBack not created',
+  allAnnouncements: 'All available announcements',
+  announcements: 'Thats the announcement you requested',
+  noannouncements: 'That announcement does not exist',
+  announcementExist: 'The announcement with that title already exist',
 };
 export default responseMessage;
