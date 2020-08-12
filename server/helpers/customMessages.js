@@ -31,6 +31,7 @@ const responseMessage = {
   error: 'There occured an error',
   invalidTitle: 'The title must not be empty and must be greater than 3',
   invalidDescription: 'the description must not be empty and must be greater thean 3',
+  invalidStatus: 'the status must not be empty and must be greater thean 3',
   invalidAnnouncement: 'the description must not be empty and must be greater thean 3',
   selectImage: 'Please select atleast one image',
   wrongType: 'Please select the right type of image',
@@ -70,5 +71,8 @@ const responseMessage = {
   best: 'the product is added to best products',
   notBest: 'the product is removed to best products',
   invalidQuantity: 'The quantity must always be numbers',
+  allRefunds: 'All available refunds',
+  refunds: 'Thats the refund you requested',
+  norefunds: 'That refund does not exist',
 };
 export default responseMessage;
