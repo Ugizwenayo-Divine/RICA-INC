@@ -28,7 +28,6 @@ const updateProductValidation = async (req, res, next) => {
   let brand = keys.find((key) => key == 'brand');
   let quantity = keys.find((key) => key == 'quantity');  
   let due_time = keys.find((key) => key == 'due_time');
-  console.log(products,req.body);
   let newPrice = products.price.split(' ');
   const data = {
     name: name ? req.body.name : products.name,

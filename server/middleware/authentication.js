@@ -3,25 +3,34 @@ import authHelpers from '../helpers/authHelper';
 import responseMessage from '../helpers/customMessages';
 import statusCode from '../helpers/statusCode';
 import userService from '../services/authServices';
+import TokenServices from '../services/tokenServices';
 
 const { errorResponse } = responseHandler;
 const { decodeToken } = authHelpers;
 const { tokenInvalid, tokenMissing, notAllowed, notUserExist } = responseMessage;
 const { userExists } = userService;
 const { badRequest, unAuthorized } = statusCode;
+const {
+  getToken,
+} = TokenServices;
+
 const isUserLoggedIn = async (req, res, next) => {
   let token = req.get('authorization');
   if (!token) {
     return errorResponse(res, badRequest, tokenMissing);
   }
   try {
-    const decodedToken = await decodeToken(token);
-    const user = await userExists('email', decodedToken.email);
-    if (!user) {
-      return errorResponse(res, unAuthorized, notAllowed);
+    const checkToken = await getToken(token);
+    if(checkToken){
+      const decodedToken = await decodeToken(token);
+      const user = await userExists('email', decodedToken.email);
+      if (!user) {
+        return errorResponse(res, unAuthorized, notAllowed);
+      }
+      req.sessionUser = decodedToken;
+      return next();
     }
-    req.sessionUser = decodedToken;
-    return next();
+    return errorResponse(res, badRequest, 'You are not logged in, login first!!!');
   } catch (error) {
     return errorResponse(res, badRequest, tokenInvalid);
   }

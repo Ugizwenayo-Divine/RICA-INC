@@ -20,27 +20,25 @@ const clientOrderPayed = async (id) => {
       await changeOrderStatus(data);
     }
     catch(err){
-      console.log(err.message);
+      return error;
     }
   }
   const updateForExpiredOrder = async (id) => {
     try{
       const totalQuantity = await addExpiredOrderQuantity(id);
       const expiredOrders = await getAllExpiredOrder(id);
-      console.log(expiredOrders,'ooooooooooo');
       expiredOrders.forEach(async (order) => {
         try{
           await createHistory(order.dataValues);
         }
         catch(error){
-          console.log(error);
+          return error;
         }
       });
       const deleted = await deleteExpiredOrder(id);
       return totalQuantity;
     }
     catch(err) {
-      console.log(err.message);
       return err.message;
     }
 

@@ -78,7 +78,6 @@ export default class PaymentController {
       return errorResponse(res, badRequest, paymentInitiatedError);
     }
     catch(err){
-      console.log(err);
       return errorResponse(res, badRequest, err.message);          
     }
   }
