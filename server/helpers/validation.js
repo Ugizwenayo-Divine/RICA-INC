@@ -21,6 +21,8 @@ const {
   invalidAdverType,
   invalidAdvertCompany,
   invalidAnnouncement,
+  orderOption,
+  invalidQuantity,
 } = customMessages;
 
 const { errorResponse } = responseHandlers;
@@ -116,8 +118,14 @@ const validateProducts = (data) => {
     price: validationMethods(/^\d+(?:[.,]\d+)*$/, {
       'string.pattern.base': `${invalidPrice}`,
     }),
+    quantity: validationMethods(/^\d+$/, {
+      'string.pattern.base': `${invalidQuantity}`,
+    }),
     brand: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
       'string.pattern.base': `${invalidBrand}`,
+    }),
+    due_time: validationMethods(/^\d+$/, {
+      'string.pattern.base': `due time must be a number`,
     }),
   });
   return schema.validate(data, {
@@ -192,6 +200,42 @@ const validateAnnouncement = (data) => {
     allowUnknown: true,
   });
 };
+const validateOrder = (data) => {
+  const schema = Joi.object({
+    quantity: validationMethods(/^\d+$/, {
+      'string.pattern.base': `${invalidQuantity}`,
+    }),
+    payment_options: validationMethods(/^card$|^momo$/, {
+      'string.pattern.base': `${orderOption}`,
+    })
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
+const validateAddProductQuantity = (data) => {
+  const schema = Joi.object({
+    quantity: validationMethods(/^\d+$/, {
+      'string.pattern.base': `${invalidQuantity}`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
+const validateBestProduct = (data) => {
+  const schema = Joi.object({
+    type: validationMethods(/^normal$|^best$/, {
+      'string.pattern.base': `invalid type, it must be normal or best`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
 
 export {
   displayErrorMessages,
@@ -205,4 +249,7 @@ export {
   validateAdvertisement,
   validateFeedback,
   validateAnnouncement,
+  validateOrder,
+  validateAddProductQuantity,
+  validateBestProduct,
 };

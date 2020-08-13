@@ -14,7 +14,7 @@ const responseMessage = {
   invalidPhoneNumber:
     'PhoneNumber should consists of numbers, without whitespace or special characters and start with 078',
   invalidName: 'The name must not be empty and must be greater than 3',
-  invalidCategory: 'the category must not be empty and must be greater thean 3',
+  invalidCategory: 'the category must not be empty and must be greater than 3',
   invalidPrice: 'The price must not be empty and must be greater than 3',
   invalidBrand: 'the brand must not be empty and must be greater thean 3',
   wrongcredentials: 'the email or password is incorrect',
@@ -58,5 +58,17 @@ const responseMessage = {
   announcements: 'Thats the announcement you requested',
   noannouncements: 'That announcement does not exist',
   announcementExist: 'The announcement with that title already exist',
+  orders: 'The requested order',
+  allOrders: 'All available orders',
+  paymentInitiated: 'payment is successfully initiated',
+  paymentDone: 'payment is successfully done',
+  transactionNotExist: 'that transaction does not exist!!',
+  paymentError: 'there occured an error why trying to pay',
+  allTransactions: 'all successful transactions',
+  paymentInitiatedError: 'there occured an error why trying to initiate payment',
+  orderOption: 'The payment option must be card or momo',
+  best: 'the product is added to best products',
+  notBest: 'the product is removed to best products',
+  invalidQuantity: 'The quantity must always be numbers',
 };
 export default responseMessage;

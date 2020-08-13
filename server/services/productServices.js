@@ -1,17 +1,20 @@
+import Sequelize from 'sequelize';
 import models from '../models';
 
 const { Product } = models;
+const Op = Sequelize.Op;
 
 class ProductHelper {
   static async saveProduct(product) {
     const acceptedProduct = await Product.create(
       {
         ...product,
+        type: 'product',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        fields: ['userId', 'name', 'category', 'price', 'image', 'brand', 'status', 'cloudinaryId'],
+        fields: ['userId', 'name', 'category', 'price', 'quantity', 'image', 'brand', 'due_time', 'type', 'cloudinaryId', 'createdAt', 'updatedAt'],
       }
     );
 
@@ -35,6 +38,7 @@ class ProductHelper {
         name: newData.name,
         category: newData.category,
         price: newData.price,
+        quantity: newData.quantity,
         image: newData.image,
         brand: newData.brand,
         cloudinaryId: newData.cloudinaryId,
@@ -55,6 +59,32 @@ class ProductHelper {
     const allProducts = await Product.findAll({ where: { category: category } });
     return allProducts;
   };
+  static addRemoveToBestProducts = async (product) => {
+    const updatedProduct = await Product.update(
+      { 
+        type: product.type,
+      }, 
+      { where: { id: product.id } }
+    );
+    return updatedProduct;
+  }
+  static getAllBestProducts = async (type) => {
+    const allProducts = await Product.findAll({ where: { type: type } });
+    return allProducts;
+  };
+  static getAllAvailableProducts = async () => {
+    const allProducts = await Product.findAll({ where: { quantity: {[Op.ne]:0} } });
+    return allProducts;
+  };
+  static insertProductQuantity = async (product) => {
+    const updatedProduct = await Product.update(
+      { 
+        quantity: product.quantity,
+      }, 
+      { where: { id: product.id } }
+    );
+    return updatedProduct;
+  }
 }
 
 export default ProductHelper;

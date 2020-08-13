@@ -1,14 +1,14 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Advertisements', {
+    await queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      advertisedBy: {
+      orderedBy: {
         allowNull: false,
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
@@ -18,24 +18,34 @@ module.exports = {
           key: 'id',
         },
       },
-      title: {
+      productId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+        references: {
+          model: 'Products',
+          key: 'id',
+        },
+      },
+      amount: {
+        type: Sequelize.FLOAT
+      },
+      currency: {
         type: Sequelize.STRING
       },
-      description: {
-        type: Sequelize.TEXT
+      ordered_quantity: {
+        type: Sequelize.INTEGER
       },
-      type: {
+      payment_options: {
+        type: Sequelize.STRING
+      },
+      status: {
         type: Sequelize.ENUM,
-        values: ['internal','external']
-      },
-      advertisingCompany: {
-        type: Sequelize.STRING
-      },
-      image: {
-        type: Sequelize.STRING
-      },
-      cloudinaryId: {
-        type: Sequelize.STRING
+        values: ['pending','payed','delivered','canceled']
+      },      
+      due_time: {
+        type: Sequelize.DATE,
       },
       createdAt: {
         allowNull: false,
@@ -45,16 +55,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    },
-    {
-      uniqueKeys: {
-        titleCompany: {
-            fields: ['title', 'advertisingCompany']
-        }
-      }
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Advertisements');
+    await queryInterface.dropTable('Orders');
   }
 };

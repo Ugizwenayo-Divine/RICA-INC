@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       announcedBy: DataTypes.INTEGER,
       title: DataTypes.STRING,
-      announcement: DataTypes.STRING,
+      announcement: DataTypes.TEXT,
     },
     {
       sequelize,

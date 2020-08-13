@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Advertisement.init({
     advertisedBy: DataTypes.INTEGER,
     title: DataTypes.STRING,
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT,
     type: DataTypes.ENUM('internal','external'),
     advertisingCompany: DataTypes.STRING,
     image: DataTypes.STRING,

@@ -28,18 +28,24 @@ module.exports = {
       price: {
         type: Sequelize.STRING,
       },
+      quantity: {
+        type: Sequelize.INTEGER,
+      },
       image: {
         type: Sequelize.STRING,
       },
       brand: {
         type: Sequelize.STRING,
       },
-      status: {
-        type: Sequelize.STRING,
-        values: ['available', 'sold'],
+      type: {
+        type: Sequelize.ENUM,
+        values: ['normal', 'best'],
       },
       cloudinaryId: {
         type: Sequelize.STRING,
+      },
+      due_time: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
