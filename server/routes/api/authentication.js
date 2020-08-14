@@ -9,6 +9,7 @@ const {
   updateUserType,
   userDeletion,
   allUsers,
+  userLogout,
 } = authController;
 const {
   isUserAdmin,
@@ -28,5 +29,6 @@ authenticationRouter.post('/login', loginValidation, checkUserExistance, userLog
 authenticationRouter.patch('/update-user',isUserLoggedIn, isUserAdmin, roleValidation, doesUserExist, updateUserType);
 authenticationRouter.delete('/delete-user/:id',isUserLoggedIn, isUserAdmin, doesUserExist, userDeletion);
 authenticationRouter.get('/all',isUserLoggedIn, isUserAdmin, allUsers);
+authenticationRouter.get('/logout',isUserLoggedIn, userLogout);
 
 export default authenticationRouter;
