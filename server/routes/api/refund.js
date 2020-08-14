@@ -11,17 +11,20 @@ const {
   updateRefundStatusValidation,
 } = refundValidation;
 
-const { doesRefundExist } = refundChecker;
+const { doesRefundExist, isRefundYours, checkRefundOrder, doesRefundNotExist } = refundChecker;
 const refundRouter = express.Router();
 
-refundRouter.post('/add', isUserLoggedIn, createRefundValidation, RefundController.addRefund);
-refundRouter.get('/', RefundController.getAll);
-refundRouter.get('/:id', doesRefundExist, RefundController.getOneRefund);
-refundRouter.delete('/:id', isUserLoggedIn, doesRefundExist, RefundController.delete);
+refundRouter.post('/add', isUserLoggedIn, createRefundValidation, checkRefundOrder,doesRefundNotExist,  RefundController.addRefund);
+refundRouter.get('/', isUserLoggedIn, isUserAdmin, RefundController.getAll);
+refundRouter.get('/customer', isUserLoggedIn, RefundController.getCustomerRefunds);
+refundRouter.get('/customer/:id', isUserLoggedIn, doesRefundExist, isRefundYours, RefundController.getOneRefund);
+refundRouter.get('/:id', isUserLoggedIn, isUserAdmin, doesRefundExist, RefundController.getOneRefund);
+refundRouter.delete('/:id', isUserLoggedIn, doesRefundExist, isRefundYours, RefundController.delete);
 refundRouter.patch(
   '/:id',
   isUserLoggedIn,
   doesRefundExist,
+  isRefundYours,
   updateRefundValidation,
   RefundController.RefundUpdation
 );

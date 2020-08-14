@@ -15,6 +15,8 @@ class HistoryServices {
         'amount',
         'currency',
         'payment_options',
+        'ordered_quantity',
+        'due_time',
         'status',
         'createdAt',
         'updatedAt'

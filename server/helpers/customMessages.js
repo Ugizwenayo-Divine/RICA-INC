@@ -31,7 +31,7 @@ const responseMessage = {
   error: 'There occured an error',
   invalidTitle: 'The title must not be empty and must be greater than 3',
   invalidDescription: 'the description must not be empty and must be greater thean 3',
-  invalidStatus: 'the status must not be empty and must be greater thean 3',
+  invalidStatus: 'the status must not approved, rejected or pending',
   invalidAnnouncement: 'the description must not be empty and must be greater thean 3',
   selectImage: 'Please select atleast one image',
   wrongType: 'Please select the right type of image',

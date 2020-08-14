@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
   Refund.init(
     {
       createdBy: DataTypes.INTEGER,
-      description: DataTypes.STRING,
+      refundOrder: DataTypes.INTEGER,
+      description: DataTypes.TEXT,
       status: DataTypes.ENUM('pending', 'approved', 'rejected'),
     },
     {

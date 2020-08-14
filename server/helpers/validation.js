@@ -250,7 +250,7 @@ const validateBestProduct = (data) => {
 };
 const validateRefundStatus = (data) => {
   const schema = Joi.object({
-    status: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    status: validationMethods(/^pendingl$|^approved$|^rejected$/, {
       'string.pattern.base': `${invalidStatus}`,
     }),
   });

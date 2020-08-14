@@ -11,7 +11,7 @@ class RefundService {
         updatedAt: new Date(),
       },
       {
-        fields: ['createdBy', 'description', 'status'],
+        fields: ['createdBy', 'refundOrder', 'description', 'status'],
       }
     );
 
@@ -51,6 +51,10 @@ class RefundService {
     const refund = await Refund.findOne({ where: { [attr]: val } });
     return refund;
   }
+  static getAllCustomerRefunds = async (id) => {
+    const allRefunds = await Refund.findAll({where: {createdBy:id}});
+    return allRefunds;
+  };
 }
 
 export default RefundService;

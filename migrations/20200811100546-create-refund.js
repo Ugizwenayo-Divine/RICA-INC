@@ -18,8 +18,12 @@ module.exports = {
           key: 'id',
         },
       },
+      refundOrder: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       status: {
         type: Sequelize.STRING,

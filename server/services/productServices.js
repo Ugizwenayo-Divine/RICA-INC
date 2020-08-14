@@ -9,7 +9,7 @@ class ProductHelper {
     const acceptedProduct = await Product.create(
       {
         ...product,
-        type: 'product',
+        type: 'normal',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

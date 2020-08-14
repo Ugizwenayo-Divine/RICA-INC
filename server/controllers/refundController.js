@@ -12,22 +12,18 @@ class RefundController {
     const { sessionUser } = req;
     const { id } = sessionUser;
     try {
-      const { description } = req.body;
+      const { refundOrder, description } = req.body;
       const status = 'pending';
       const datas = await RefundServices.saveRefund({
         createdBy: id,
+        refundOrder,
         description,
         status,
       });
       return res.status(201).json({
         status: 201,
         message: 'Refund Successfully Added',
-        data: {
-          description: datas.description,
-          status: datas.status,
-          createdAt: datas.createdAt,
-          updatedAt: datas.updatedAt,
-        },
+        data: datas,
       });
     } catch (error) {
       return res.status(500).json({
@@ -88,6 +84,15 @@ class RefundController {
       await RefundServices.updateRefundStatus(newData);
       return successResponse(res, ok, 'updated', null, null);
     } catch (err) {
+      return errorResponse(res, badRequest, error);
+    }
+  };
+  static getCustomerRefunds = async (req, res) => {
+    const {sessionUser} = req;
+    try {
+      const refunds = await RefundServices.getAllCustomerRefunds(sessionUser.id);
+      return successResponse(res, ok, allRefunds, null, refunds);
+    } catch (error) {
       return errorResponse(res, badRequest, error);
     }
   };
