@@ -16,7 +16,6 @@ const {
   getAllStatusBased,
   getOnePayedOrders,
   clientOrderdelivered,
-  getSoldProducts,
 } = OrdersController;
 const {
   isUserLoggedIn,
@@ -40,7 +39,6 @@ const ordersRouter = express.Router();
 ordersRouter.post('/add', isUserLoggedIn, doesOrderedProductExist, orderValidation, addOrders);
 ordersRouter.get('/', isUserLoggedIn, isUserAdmin, getAll);
 ordersRouter.get('/status-based/', isUserLoggedIn, isUserAdmin, getAllStatusBased);
-ordersRouter.get('/sold', isUserLoggedIn, isUserAdmin, getSoldProducts);
 ordersRouter.get('/client-orders', isUserLoggedIn, getClientOrders);
 ordersRouter.get('/payed-orders', isUserLoggedIn, isUserAdmin, getOnePayedOrders);
 ordersRouter.get('/:id', isUserLoggedIn, isUserAdmin, doesOrdersExist, getOneOrders);

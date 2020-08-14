@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import models from '../models';
 
-const { Orders, Products } = models;
+const { Orders } = models;
 const Op = Sequelize.Op;
 
 class OrdersServices {
@@ -85,10 +85,6 @@ class OrdersServices {
   static getAllExpiredOrder = async (id) => {
     const deleted = await Orders.findAll({where: {due_time: { [Op.lt] : new Date()}, productId: id}});
     return deleted;
-  }
-  static getAllSoldProducts = async () => {
-    const orders = await Orders.findAll({where: {status : 'payed'},include: Products});
-    return orders;
   }
 }
 

@@ -59,7 +59,7 @@ export default class PaymentController {
         amount: order.dataValues.amount,
       };      
       const userData = {
-        transactedBy:sessionUser.id,
+        transactedBy:order.dataValues.orderedBy,
         order_id:order.dataValues.id,
         phone_number:sessionUser.phoneNumber,
         type:order.dataValues.payment_options
@@ -78,6 +78,7 @@ export default class PaymentController {
       return errorResponse(res, badRequest, paymentInitiatedError);
     }
     catch(err){
+      console.log(err);
       return errorResponse(res, badRequest, err.message);          
     }
   }

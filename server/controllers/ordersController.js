@@ -14,7 +14,6 @@ const {
   changeOrderStatus,
   getOrdersStatusBased,
   getAllPayedClientOrders,
-  getAllSoldProducts,
 } = OrdersServices;
 const {
   errorResponse,
@@ -168,16 +167,6 @@ class OrdersController {
       return successResponse(res, ok, 'the order is delivered', null, null);
     }
     catch(err){
-      return errorResponse(res, badRequest, error);
-    }
-  }
-  static getSoldProducts = async (req, res) => {
-    try{
-      const allProducts = await getAllSoldProducts();
-      return successResponse(res, ok, orders, null, allProducts);
-    }
-    catch(error){
-      console.log(error,'<<<<<<<<<<<<');
       return errorResponse(res, badRequest, error);
     }
   }

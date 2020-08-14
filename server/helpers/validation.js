@@ -13,6 +13,7 @@ const {
   invalidPassword,
   invalidType,
   invalidDescription,
+  invalidStatus,
   invalidTitle,
   invalidName,
   invalidCategory,
@@ -214,6 +215,17 @@ const validateOrder = (data) => {
     allowUnknown: true,
   });
 };
+const validateRefund = (data) => {
+  const schema = Joi.object({
+    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+      'string.pattern.base': `${invalidDescription}`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
 const validateAddProductQuantity = (data) => {
   const schema = Joi.object({
     quantity: validationMethods(/^\d+$/, {
@@ -229,6 +241,17 @@ const validateBestProduct = (data) => {
   const schema = Joi.object({
     type: validationMethods(/^normal$|^best$/, {
       'string.pattern.base': `invalid type, it must be normal or best`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
+const validateRefundStatus = (data) => {
+  const schema = Joi.object({
+    status: validationMethods(/^pendingl$|^approved$|^rejected$/, {
+      'string.pattern.base': `${invalidStatus}`,
     }),
   });
   return schema.validate(data, {
@@ -252,4 +275,6 @@ export {
   validateOrder,
   validateAddProductQuantity,
   validateBestProduct,
+  validateRefund,
+  validateRefundStatus,
 };

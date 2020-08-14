@@ -50,8 +50,8 @@ productRouter.patch(
 );
 productRouter.patch('/add-quantity/:id', isUserLoggedIn, isUserAdmin, doesProductExist, validateQuantity, ProductController.addProductQuantity);
 productRouter.patch('/best/:id', isUserLoggedIn, isUserAdmin, doesProductExist, validateBestProducts, ProductController.addRemoveToBestProducts);
-productRouter.get('/available', isUserLoggedIn, isUserAdmin, ProductController.getAllAvailableProducts);
-productRouter.get('/product-type', isUserLoggedIn, isUserAdmin, ProductController.getAllProductTypeBased);
+productRouter.get('/available', ProductController.getAllAvailableProducts);
+productRouter.get('/product-type', ProductController.getAllProductTypeBased);
 productRouter.get('/:id', doesProductExist, ProductController.getOneProduct);
 
 export default productRouter;
