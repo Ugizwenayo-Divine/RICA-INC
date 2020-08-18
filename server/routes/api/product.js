@@ -15,6 +15,7 @@ const {
   updateProductValidation,
   validateBestProducts,
   validateQuantity,
+  searchAnyProduct,
 } = productValidation;
 
 const { doesProductExist, doesProductNameExist } = productChecker;
@@ -32,6 +33,7 @@ productRouter.post(
 productRouter.get('/', ProductController.getAll);
 productRouter.get('/searchname', searchProductName, ProductController.searchName);
 productRouter.get('/searchcategory', searchProductCategory, ProductController.searchCategory);
+productRouter.get('/any', searchAnyProduct, ProductController.searchAny);
 productRouter.delete(
   '/:id',
   isUserLoggedIn,

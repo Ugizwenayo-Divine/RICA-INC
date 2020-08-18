@@ -5,6 +5,7 @@ import {
   displayErrorMessages,
   validateAddProductQuantity,
   validateBestProduct,
+  validateAnySearch,
 } from '../helpers/validation';
 
 const createProductValidation = async (req, res, next) => {
@@ -12,11 +13,19 @@ const createProductValidation = async (req, res, next) => {
   displayErrorMessages(error, res, next);
 };
 const searchProductName = async (req, res, next) => {
-  const { error } = validateSearchName(req.body);
+  const {name} = req.query;
+  const data={
+    name,
+  }
+  const { error } = validateSearchName(data);
   displayErrorMessages(error, res, next);
 };
 const searchProductCategory = async (req, res, next) => {
-  const { error } = validateSearchCategory(req.body);
+  const {category} = req.query;
+  const data={
+    category,
+  }
+  const { error } = validateSearchCategory(data);
   displayErrorMessages(error, res, next);
 };
 const updateProductValidation = async (req, res, next) => {
@@ -48,6 +57,14 @@ const validateBestProducts = async (req, res, next) => {
   const { error } = validateBestProduct(req.body);
   displayErrorMessages(error, res, next);
 };
+const searchAnyProduct = async (req, res, next) => {
+  const {search} = req.query;
+  const data={
+    search,
+  }
+  const { error } = validateAnySearch(data);
+  displayErrorMessages(error, res, next);
+};
 
 export default {
   createProductValidation,
@@ -56,4 +73,5 @@ export default {
   searchProductCategory,
   validateBestProducts,
   validateQuantity,
+  searchAnyProduct,
 };

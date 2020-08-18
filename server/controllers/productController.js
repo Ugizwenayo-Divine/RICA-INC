@@ -90,29 +90,27 @@ class ProductController {
   };
   static searchName = async (req, res) => {
     try {
-      const { name } = req.body;
+      const { name } = req.query;
       const foundName = await ProductHelper.searchByName(name);
-      if (foundName.length >= 1) {
-        return successResponse(res, ok, productNameFound, null, foundName);
+      if (foundName.length == 0) {
+        return errorResponse(res, badRequest, 'Product does not exist');
       } else {
-        return res.status(404).json({
-          status: 404,
-          error: 'Product with that name does not exist',
-        });
+        return successResponse(res, ok, productNameFound, null, foundName);
       }
     } catch (error) {
+      console.log(error,'erroraaaaaa');
       return errorResponse(res, badRequest, error);
     }
   };
   static searchCategory = async (req, res) => {
     try {
-      const { category } = req.body;
+      const { category } = req.query;
       const foundCategory = await ProductHelper.searchByCategory(category);
       if (foundCategory.length >= 1) {
         return successResponse(res, ok, productCategoryFound, null, foundCategory);
       } else {
-        return res.status(404).json({
-          status: 404,
+        return res.status(400).json({
+          status: 400,
           error: 'Product with that category does not exist',
         });
       }
@@ -214,5 +212,19 @@ class ProductController {
       return errorResponse(res, badRequest, err.message);
     }
   }
+  static searchAny = async (req, res) => {
+    try {
+      const { search } = req.query;
+      const foundName = await ProductHelper.findByNameCategoryBrand(search);
+      if (foundName.length == 0) {
+        return errorResponse(res, badRequest, 'Product does not exist');
+      } else {
+        return successResponse(res, ok, productNameFound, null, foundName);
+      }
+    } catch (error) {
+      console.log(error,'erroraaaaaa');
+      return errorResponse(res, badRequest, error);
+    }
+  };
 }
 export default ProductController;
