@@ -85,6 +85,14 @@ class ProductHelper {
     );
     return updatedProduct;
   }
+  static findByNameCategoryBrand = async (value) => {
+    let product = await Product.findAll({
+      where: { 
+        [Op.or]:[{name: {[Op.iLike]:`%${value}%`} },{category:{[Op.iLike]:`%${value}%`}},{brand:{[Op.iLike]:`%${value}%`}}],
+      }
+    });
+    return product;
+  };
 }
 
 export default ProductHelper;

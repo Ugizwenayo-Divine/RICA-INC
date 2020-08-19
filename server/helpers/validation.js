@@ -259,6 +259,17 @@ const validateRefundStatus = (data) => {
     allowUnknown: true,
   });
 };
+const validateAnySearch = (data) => {
+  const schema = Joi.object({
+    search: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{3,})+$/, {
+      'string.pattern.base': `${invalidName}`,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
 
 export {
   displayErrorMessages,
@@ -277,4 +288,5 @@ export {
   validateBestProduct,
   validateRefund,
   validateRefundStatus,
+  validateAnySearch,
 };
