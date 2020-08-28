@@ -66,8 +66,16 @@ export default class AuthenticationController {
     const { loginUser } = req;
     try{
       const token = await generateToken(loginUser);
+      const loggedUser={
+        firstName:loginUser.firstName,
+        lastName:loginUser.lastName,
+        email:loginUser.email,
+        type:loginUser.type,
+        phoneNumber:loginUser.phoneNumber,
+        gender:loginUser.gender
+      };
       await createToken(token);
-      successResponse(res, ok, customMessages.loginSuccess, token);
+      successResponse(res, ok, customMessages.loginSuccess, token, loggedUser);
     }
     catch(err){
       errorResponse(res, badRequest, 'you are already logged in');
