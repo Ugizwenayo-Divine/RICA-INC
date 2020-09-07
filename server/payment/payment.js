@@ -26,7 +26,7 @@ const rwn_mobilemoney=  async (userData, data)=>{
           "email":data.email,
           "phone_number":data.phone_number,
           "fullname":data.fullname,
-          "redirect_url":"https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",
+          "redirect_url":"https://rica-inc.herokuapp.com/payment/payment",
         }
       ),
     })
@@ -64,7 +64,7 @@ const cardPayment = async (userData, data) => {
           "tx_ref":transaction.id,
           "amount":data.amount,
           "currency":data.currency,
-          "redirect_url":"https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",
+          "redirect_url":"https://rica-inc.herokuapp.com/payment/payment",
           "payment_options":userData.type,
           "meta":{
              "consumer_id":userData.transactedBy,
@@ -78,7 +78,7 @@ const cardPayment = async (userData, data) => {
           "customizations":{
              "title":"RICA product Payments",
              "description":"The RICA product isn't free. Pay the price",
-             "logo":"https://assets.piedpiper.com/logo.png"
+             "logo":"RICA INC"
           }
         }
       ),
