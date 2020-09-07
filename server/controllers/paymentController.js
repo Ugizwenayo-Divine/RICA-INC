@@ -107,9 +107,18 @@ export default class PaymentController {
     }
 
   }
-  static getPayment = async (req, res) => {
-      return successResponse(res,ok,'success',null,null);
+  static getVerifiedTransactions = async (req, res) => {
+    try{
+      const transactions = await getAllTransactions();
+      return successResponse(res, ok, allTransactions, null, transactions);
+    }
+    catch(error){
+      return errorResponse(res, badRequest, error);
+    }
   }
+  static getPayment = async (req, res) => {
+    return successResponse(res,ok,'success',null,null);
+}
     
 }
   
