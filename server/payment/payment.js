@@ -26,6 +26,9 @@ const rwn_mobilemoney=  async (userData, data)=>{
           "email":data.email,
           "phone_number":data.phone_number,
           "fullname":data.fullname,
+          // "callback": function (data) { // specified callback function
+          //   console.log(data);
+          // },
           "redirect_url":"https://rica-inc.herokuapp.com/api/payment/payment",
         }
       ),

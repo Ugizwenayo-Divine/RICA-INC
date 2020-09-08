@@ -1,17 +1,16 @@
-import NewsServices from '../services/newsService';
+import StudySupervisionServices from '../services/studySupervision';
 import responseHandler from '../helpers/responseHandler';
 import responseMessage from '../helpers/customMessages';
 import statusCode from '../helpers/statusCode';
 import uploadTheImage from '../helpers/uploadImage';
 
 const {
-  createNews,
-  getAllNews,
-  getNews,
-  deleteNews,
-  updateNews,
-  newsExists,
-} = NewsServices;
+  createStudySupervision,
+  getAllStudySupervision,
+  getStudySupervision,
+  deleteStudySupervision,
+  updateStudySupervision,
+} = StudySupervisionServices;
 const {
   errorResponse,
   successResponse,
@@ -21,8 +20,6 @@ const {
   successCreation,
   wrongType,
   selectImage,
-  allNews,
-  news,
   deleted,
 } = responseMessage;
 const {
@@ -33,11 +30,12 @@ const {
   ok,
 } = statusCode;
 
-class NewsController {
-  static addNews = async (req,res) => {
+class StudySupervisionController {
+  static addStudySupervision = async (req,res) => {
+    console.log('here22');
     const {sessionUser} = req;
     const {id} = sessionUser;
-    const { title, description } = req.body;
+    const { description } = req.body;
 
     try{
       if (req.files && req.files.image) {
@@ -51,64 +49,66 @@ class NewsController {
         if (!image.url || image.url.includes('null')) {
           return errorResponse(res, unSupportedMedia, wrongType);
         } else null;
+        console.log('user',id);
         const data = {
-          userId:id,
-          title,
+          studyBy:id,
           description,
           image:image.url,
           cloudinaryId:image.public_id,
         }
-        const result = await createNews(data);
+        const result = await createStudySupervision(data);
+        console.log(result,'llll');
         return successResponse(res,created,successCreation,null,result);
       }
       return errorResponse(res, unAuthorized, selectImage);
 
     }
     catch(err){
-        return errorResponse(res,badRequest,error);
+      console.log('addd',err);
+      return errorResponse(res,badRequest,error);
     }
   }
   static getAll = async (req, res) => {
     try{
-      const news = await getAllNews();
-      return successResponse(res, ok, allNews, null, news);
+      const studySupervision = await getAllStudySupervision();
+      return successResponse(res, ok, 'All available studySupervisions', null, studySupervision);
     }
     catch(error){
       return errorResponse(res, badRequest, error);
     }
   }
-  static getOneNews = async (req, res) => {
+  static getOneStudySupervision = async (req, res) => {
     try{
       const {id} = req.params;
-      const oneNews = await getNews(id);
-      return successResponse(res, ok, news, null, oneNews);
+      const oneStudySupervision = await getStudySupervision(id);
+      return successResponse(res, ok, 'The requested studySupervision', null, oneStudySupervision);
     }
     catch(error){
       return errorResponse(res, badRequest, error);
     }
   }
-  static deleteOneNews = async (req, res) => {
+  static deleteOneStudySupervision = async (req, res) => {
     try{
       const {id} = req.params;
-      const {news} = req;
-      await uploadTheImage.deleteTheImage(news.cloudinaryId);
-      await deleteNews(id);
+      const {study} = req;
+      await uploadTheImage.deleteTheImage(study.cloudinaryId);
+      await deleteStudySupervision(id);
       return successResponse(res, ok, deleted, null, null);
     }
     catch(err){
       return errorResponse(res, badRequest, error);
     }
   }
-  static newsUpdation = async (req, res) => {
+  static studySupervisionUpdation = async (req, res) => {
     let image;
     try{
       const {id} = req.params;
       let imageUrl=null,imageId=null;
-      const {news} = req;
+      const {study} = req;
       
       if (req.files && req.files.image){
 
-        await uploadTheImage.deleteTheImage(news.cloudinaryId);
+        await uploadTheImage.deleteTheImage(study.cloudinaryId);
         image = await uploadTheImage.uploader(req.files.image);
         if (!image || image.url.includes('null')) {
           return errorResponse(res, unSupportedMedia, wrongType);
@@ -119,31 +119,17 @@ class NewsController {
       }
       const newData = {
         id,
-        title: req.body.title || news.title,
-        description: req.body.description || news.description,
-        image: imageUrl || news.image,
-        cloudinaryId: imageId || news.cloudinaryId,
+        description: req.body.description || study.description,
+        image: imageUrl || study.image,
+        cloudinaryId: imageId || study.cloudinaryId,
       }
-      await updateNews(newData);
+      await updateStudySupervision(newData);
       return successResponse(res, ok, 'updated', null, null);
     }
     catch(err){
       return errorResponse(res, badRequest, error);
     }
   }
-  static getOneNewsTitle = async (req, res) => {
-    try{
-      const {title} = req.query;
-      const oneNews = await newsExists('title',title);
-      if(oneNews){
-        return successResponse(res, ok, news, null, oneNews);
-      }
-      return errorResponse(res,badRequest,'The news does not exist');
-    }
-    catch(error){
-      return errorResponse(res, badRequest, error);
-    }
-  }
 }
 
-export default NewsController;
+export default StudySupervisionController;

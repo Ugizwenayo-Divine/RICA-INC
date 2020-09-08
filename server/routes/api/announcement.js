@@ -19,6 +19,7 @@ announcementRouter.post(
   AnnouncementController.addAnnouncement
 );
 announcementRouter.get('/', AnnouncementController.getAll);
+announcementRouter.get('/title', AnnouncementController.getOneTitle);
 announcementRouter.get('/:id', doesAnnouncementExist, AnnouncementController.getOneAnnouncement);
 announcementRouter.delete(
   '/:id',

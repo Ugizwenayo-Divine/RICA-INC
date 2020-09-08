@@ -13,6 +13,7 @@ const {
   getOneNews,
   deleteOneNews,
   newsUpdation,
+  getOneNewsTitle
 } = NewsController;
 const {
   isUserLoggedIn,
@@ -31,6 +32,7 @@ const newsRouter = express.Router();
 
 newsRouter.post('/add',multipart, isUserLoggedIn,isUserAdmin, createNewsValidation, doesNewsTitleExist, addNews);
 newsRouter.get('/', getAll);
+newsRouter.get('/title', getOneNewsTitle);
 newsRouter.get('/:id', doesNewsExist, getOneNews);
 newsRouter.delete('/:id', isUserLoggedIn,isUserAdmin, doesNewsExist, deleteOneNews);
 newsRouter.patch('/:id', multipart, isUserLoggedIn,isUserAdmin, doesNewsExist, updateNewsValidation, newsUpdation);

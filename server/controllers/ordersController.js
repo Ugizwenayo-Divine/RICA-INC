@@ -53,6 +53,7 @@ class OrdersController {
       const data = {
         orderedBy:id,
         productId,
+        product:product.dataValues.name,
         amount: (amount[0]*quantity),
         currency: amount[1],
         ordered_quantity: quantity,
