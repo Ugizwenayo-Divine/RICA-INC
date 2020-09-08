@@ -270,6 +270,19 @@ const validateAnySearch = (data) => {
     allowUnknown: true,
   });
 };
+const validateConsultant = (data) => {
+  console.log(data,'datatt')
+  const schema = Joi.object({
+
+    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?)(-]{1,})+$/, {
+      'string.pattern.base': invalidDescription,
+    }),
+  });
+  return schema.validate(data, {
+    abortEarly: false,
+    allowUnknown: true,
+  });
+};
 
 export {
   displayErrorMessages,
@@ -289,4 +302,5 @@ export {
   validateRefund,
   validateRefundStatus,
   validateAnySearch,
+  validateConsultant,
 };

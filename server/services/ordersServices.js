@@ -18,6 +18,7 @@ class OrdersServices {
       fields:[
         'orderedBy',
         'productId',
+        'product',
         'amount',
         'currency',
         'ordered_quantity',

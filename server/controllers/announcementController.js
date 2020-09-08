@@ -77,5 +77,17 @@ class AnnouncementController {
       return errorResponse(res, badRequest, error);
     }
   };
+  static getOneTitle = async (req, res) => {
+    try {
+      const { title } = req.query;
+      const oneAnnouncement = await AnnouncementServices.AnnouncementExists('title',title);
+      if(oneAnnouncement){
+        return successResponse(res, ok, announcements, null, oneAnnouncement);
+      }
+      return errorResponse(res,badRequest,'The announcement does not exist');
+    } catch (error) {
+      return errorResponse(res, badRequest, error);
+    }
+  };
 }
 export default AnnouncementController;

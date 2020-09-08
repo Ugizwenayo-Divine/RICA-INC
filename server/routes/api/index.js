@@ -9,6 +9,8 @@ import ordersRouter from './orders';
 import paymentRouter from './payment';
 import historyRouter from './history';
 import refundRouter from './refund';
+import studyRouter from './study';
+import designRouter from './design';
 
 const apiRouter = express.Router();
 
@@ -22,5 +24,7 @@ apiRouter.use('/orders', ordersRouter);
 apiRouter.use('/payment', paymentRouter);
 apiRouter.use('/history', historyRouter);
 apiRouter.use('/refund', refundRouter);
+apiRouter.use('/study', studyRouter);
+apiRouter.use('/design', designRouter);
 
 export default apiRouter;

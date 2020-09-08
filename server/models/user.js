@@ -38,6 +38,16 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
+      User.hasMany(models.Design, {
+        foreignKey: 'designBy',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
+      User.hasMany(models.StudySupervision, {
+        foreignKey: 'studyBy',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
     }
   }
   User.init(

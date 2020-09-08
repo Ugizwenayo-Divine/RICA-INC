@@ -1,17 +1,16 @@
-import NewsServices from '../services/newsService';
+import DesignServices from '../services/designService';
 import responseHandler from '../helpers/responseHandler';
 import responseMessage from '../helpers/customMessages';
 import statusCode from '../helpers/statusCode';
 import uploadTheImage from '../helpers/uploadImage';
 
 const {
-  createNews,
-  getAllNews,
-  getNews,
-  deleteNews,
-  updateNews,
-  newsExists,
-} = NewsServices;
+  createDesign,
+  getAllDesign,
+  getDesign,
+  deleteDesign,
+  updateDesign,
+} = DesignServices;
 const {
   errorResponse,
   successResponse,
@@ -21,8 +20,8 @@ const {
   successCreation,
   wrongType,
   selectImage,
-  allNews,
-  news,
+  allDesign,
+  Design,
   deleted,
 } = responseMessage;
 const {
@@ -33,11 +32,11 @@ const {
   ok,
 } = statusCode;
 
-class NewsController {
-  static addNews = async (req,res) => {
+class DesignController {
+  static addDesign = async (req,res) => {
     const {sessionUser} = req;
     const {id} = sessionUser;
-    const { title, description } = req.body;
+    const { description } = req.body;
 
     try{
       if (req.files && req.files.image) {
@@ -52,63 +51,63 @@ class NewsController {
           return errorResponse(res, unSupportedMedia, wrongType);
         } else null;
         const data = {
-          userId:id,
-          title,
+          designBy:id,
           description,
           image:image.url,
           cloudinaryId:image.public_id,
         }
-        const result = await createNews(data);
+        const result = await createDesign(data);
         return successResponse(res,created,successCreation,null,result);
       }
       return errorResponse(res, unAuthorized, selectImage);
 
     }
     catch(err){
+      console.log('hhhh',err);
         return errorResponse(res,badRequest,error);
     }
   }
   static getAll = async (req, res) => {
     try{
-      const news = await getAllNews();
-      return successResponse(res, ok, allNews, null, news);
+      const design = await getAllDesign();
+      return successResponse(res, ok, 'All available designs', null, design);
     }
     catch(error){
       return errorResponse(res, badRequest, error);
     }
   }
-  static getOneNews = async (req, res) => {
+  static getOneDesign = async (req, res) => {
     try{
       const {id} = req.params;
-      const oneNews = await getNews(id);
-      return successResponse(res, ok, news, null, oneNews);
+      const oneDesign = await getDesign(id);
+      return successResponse(res, ok, 'The requested design', null, oneDesign);
     }
     catch(error){
       return errorResponse(res, badRequest, error);
     }
   }
-  static deleteOneNews = async (req, res) => {
+  static deleteOneDesign = async (req, res) => {
     try{
       const {id} = req.params;
-      const {news} = req;
-      await uploadTheImage.deleteTheImage(news.cloudinaryId);
-      await deleteNews(id);
+      const {design} = req;
+      await uploadTheImage.deleteTheImage(design.cloudinaryId);
+      await deleteDesign(id);
       return successResponse(res, ok, deleted, null, null);
     }
     catch(err){
       return errorResponse(res, badRequest, error);
     }
   }
-  static newsUpdation = async (req, res) => {
+  static designUpdation = async (req, res) => {
     let image;
     try{
       const {id} = req.params;
       let imageUrl=null,imageId=null;
-      const {news} = req;
+      const {design} = req;
       
       if (req.files && req.files.image){
 
-        await uploadTheImage.deleteTheImage(news.cloudinaryId);
+        await uploadTheImage.deleteTheImage(design.cloudinaryId);
         image = await uploadTheImage.uploader(req.files.image);
         if (!image || image.url.includes('null')) {
           return errorResponse(res, unSupportedMedia, wrongType);
@@ -119,31 +118,18 @@ class NewsController {
       }
       const newData = {
         id,
-        title: req.body.title || news.title,
-        description: req.body.description || news.description,
-        image: imageUrl || news.image,
-        cloudinaryId: imageId || news.cloudinaryId,
+        description: req.body.description || design.description,
+        image: imageUrl || design.image,
+        cloudinaryId: imageId || design.cloudinaryId,
       }
-      await updateNews(newData);
+      await updateDesign(newData);
       return successResponse(res, ok, 'updated', null, null);
     }
     catch(err){
-      return errorResponse(res, badRequest, error);
-    }
-  }
-  static getOneNewsTitle = async (req, res) => {
-    try{
-      const {title} = req.query;
-      const oneNews = await newsExists('title',title);
-      if(oneNews){
-        return successResponse(res, ok, news, null, oneNews);
-      }
-      return errorResponse(res,badRequest,'The news does not exist');
-    }
-    catch(error){
+      console.log(err,'errors');
       return errorResponse(res, badRequest, error);
     }
   }
 }
 
-export default NewsController;
+export default DesignController;
