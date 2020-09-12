@@ -105,6 +105,34 @@ export default class PaymentController {
     catch(err){
       return errorResponse(res, badRequest, err.message);          
     }
+  }
+    static async verification(req, res) {
+      console.log('Flutterwaveeeeeeeeeeeeeee');     
+      let transaction_id='';
+      transaction_id = req.body.data.id || req.body.transaction_id;
+
+      try {
+        const result = await verifyPayment(transaction_id);
+        const {tx_ref, amount, currency } = result.data;
+        const transaction = await getTransaction(tx_ref);
+        const transactionData = {
+          tx_ref,
+          transaction_id,
+        }
+        if(transaction){
+          const {Order} = transaction.dataValues;
+          if (result.status == 'success' && amount >= Order.dataValues.amount && currency == Order.dataValues.currency){
+            await updateStatus(transactionData);
+            await clientOrderPayed(Order.dataValues.id);
+            return successResponse(res, ok, paymentDone, null, null);
+          }
+          return errorResponse(res, badRequest, paymentError);
+        }
+        return errorResponse(res, badRequest, transactionNotExist);
+      }
+      catch(err){
+        return errorResponse(res, badRequest, err.message);          
+      }
 
   }
   static getVerifiedTransactions = async (req, res) => {

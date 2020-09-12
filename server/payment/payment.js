@@ -29,7 +29,7 @@ const rwn_mobilemoney=  async (userData, data)=>{
           // "callback": function (data) { // specified callback function
           //   console.log(data);
           // },
-          "redirect_url":"https://rica-inc.herokuapp.com/api/payment/payment",
+          "redirect_url":"http://localhost:3000/displayclientorders",
         }
       ),
     })
@@ -67,7 +67,7 @@ const cardPayment = async (userData, data) => {
           "tx_ref":transaction.id,
           "amount":data.amount,
           "currency":data.currency,
-          "redirect_url":"https://rica-inc.herokuapp.com/api/payment/payment",
+          "redirect_url":"http://localhost:3000/displayclientorders",
           "payment_options":userData.type,
           "meta":{
              "consumer_id":userData.transactedBy,
