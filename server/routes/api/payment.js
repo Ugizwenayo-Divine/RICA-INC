@@ -7,14 +7,17 @@ const {
   isUserAdmin,
 } = authentication;
 const {
-  paymentVerification,
+  // paymentVerification,
+  verification,
   getVerifiedTransactions,
   getPayment,
 } = Payment;
 
 const paymentRouter = express.Router();
 
-paymentRouter.patch('/verify/:transaction_id', isUserLoggedIn, paymentVerification);
+paymentRouter.post('/verify/transaction', verification);
+// paymentRouter.patch('/verify/:transaction_id', isUserLoggedIn, paymentVerification);
+// paymentRouter.patch('/verify/transaction', isUserLoggedIn, paymentVerification);
 paymentRouter.get('/transactions', isUserLoggedIn, isUserAdmin, getVerifiedTransactions);
 paymentRouter.get('/payment', getPayment);
 
