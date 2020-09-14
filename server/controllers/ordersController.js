@@ -139,6 +139,9 @@ class OrdersController {
       }
       const order = await getOrders(id);
       if(order.dataValues.status == 'pending'){
+        const product = await getProduct(order.dataValues.productId);
+        product.dataValues.quantity = product.dataValues.quantity + order.dataValues.ordered_quantity;
+        await updateProduct(product.dataValues);
         await changeOrderStatus(data);
         return successResponse(res, ok, 'the order is canceled', null, null);
       }
