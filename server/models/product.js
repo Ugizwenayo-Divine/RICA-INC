@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       quantity: DataTypes.INTEGER,
       image: DataTypes.STRING,
       brand: DataTypes.STRING,
+      description:DataTypes.TEXT,
       type: DataTypes.ENUM('normal', 'best'),
       cloudinaryId: DataTypes.STRING,
       due_time: DataTypes.INTEGER

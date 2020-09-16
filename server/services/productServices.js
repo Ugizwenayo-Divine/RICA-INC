@@ -14,7 +14,7 @@ class ProductHelper {
         updatedAt: new Date(),
       },
       {
-        fields: ['userId', 'name', 'category', 'price', 'quantity', 'image', 'brand', 'due_time', 'type', 'cloudinaryId', 'createdAt', 'updatedAt'],
+        fields: ['userId', 'name', 'category', 'price', 'quantity', 'image', 'brand', 'description', 'due_time', 'type', 'cloudinaryId', 'createdAt', 'updatedAt'],
       }
     );
 
@@ -41,6 +41,7 @@ class ProductHelper {
         quantity: newData.quantity,
         image: newData.image,
         brand: newData.brand,
+        description: newData.description,
         cloudinaryId: newData.cloudinaryId,
       },
       { where: { id: newData.id } }

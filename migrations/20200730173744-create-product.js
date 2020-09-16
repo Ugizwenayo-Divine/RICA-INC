@@ -37,6 +37,9 @@ module.exports = {
       brand: {
         type: Sequelize.STRING,
       },
+      description: {
+        type: Sequelize.TEXT,
+      },
       type: {
         type: Sequelize.ENUM,
         values: ['normal', 'best'],
