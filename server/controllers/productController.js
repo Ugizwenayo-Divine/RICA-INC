@@ -41,7 +41,7 @@ class ProductController {
             error: 'Please select the right type of image',
           });
         } else null;
-        const { name, category, price, brand, due_time, quantity } = req.body;
+        const { name, category, price, brand, due_time, quantity, description } = req.body;
         const datas = await productHelper.saveProduct({
           userId: id,
           name,
@@ -50,6 +50,7 @@ class ProductController {
           quantity,
           image: image.url,
           brand,
+          description,
           due_time,
           cloudinaryId: image.public_id,
         });
@@ -64,6 +65,7 @@ class ProductController {
         error: 'Please select one or more images',
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
         status: 500,
         message: error.message,
@@ -98,7 +100,7 @@ class ProductController {
         return successResponse(res, ok, productNameFound, null, foundName);
       }
     } catch (error) {
-      console.log(error,'erroraaaaaa');
+      console.log(error,'error');
       return errorResponse(res, badRequest, error);
     }
   };
@@ -155,11 +157,13 @@ class ProductController {
         quantity: req.body.quantity || products.quantity,
         image: imageUrl || products.image,
         brand: req.body.brand || products.brand,
+        description: req.body.description || products.description,
         cloudinaryId: imageId || products.cloudinaryId,
       };
       await ProductHelper.updateProduct(newData);
       return successResponse(res, ok, 'updated', null, null);
     } catch (err) {
+      console.log(err);
       return errorResponse(res, badRequest, error);
     }
   };
@@ -222,7 +226,7 @@ class ProductController {
         return successResponse(res, ok, productNameFound, null, foundName);
       }
     } catch (error) {
-      console.log(error,'erroraaaaaa');
+      console.log(error,'error');
       return errorResponse(res, badRequest, error);
     }
   };
