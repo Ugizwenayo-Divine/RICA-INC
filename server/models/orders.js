@@ -28,7 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     currency: DataTypes.STRING,
     ordered_quantity: DataTypes.INTEGER,
     payment_options: DataTypes.STRING,
-    status: DataTypes.ENUM('pending','payed','delivered','canceled'),
+    bonus: DataTypes.STRING,
+    deliveredDistrict: DataTypes.STRING,
+    deliveredLocation: DataTypes.STRING,
+    status: DataTypes.ENUM('pending','payed','delivered','canceled','discounted'),
     due_time: DataTypes.DATE
   }, {
     sequelize,
