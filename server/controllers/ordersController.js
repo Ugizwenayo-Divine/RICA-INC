@@ -4,6 +4,9 @@ import responseMessage from '../helpers/customMessages';
 import statusCode from '../helpers/statusCode';
 import ProductServices from '../services/productServices';
 import HistoryServices from '../services/historyServices';
+import sendNotification from '../helpers/smsNotification';
+import AuthServices from '../services/authServices';
+import orderHelper from '../helpers/orderHelper';
 
 const {
   createOrders,
@@ -38,34 +41,55 @@ const {
 const {
   createHistory,
 } = HistoryServices;
-
+const {
+  sendSMS,
+} = sendNotification;
+const {
+  findAllUsers,
+} = AuthServices;
+const {
+  allowDiscount
+} = orderHelper;
 class OrdersController {
   static addOrders = async (req,res) => {
     const {sessionUser} = req;
     const {id} = sessionUser;
-    const { productId, quantity, payment_options, } = req.body;
+    const { productId, quantity, payment_options, deliveredDistrict,deliveredLocation, } = req.body;
 
     try{
       const product = await getProduct(productId);
       product.dataValues.quantity = product.dataValues.quantity - quantity;
       await updateProduct(product.dataValues);
       const amount = product.dataValues.price.split(' ');
+      const allowedBonus = await allowDiscount({id,amount:(amount[0]*quantity)});
       const data = {
         orderedBy:id,
         productId,
         product:product.dataValues.name,
-        amount: (amount[0]*quantity),
+        amount: ((amount[0]*quantity)+parseInt(deliveredDistrict.price)),
         currency: amount[1],
         ordered_quantity: quantity,
         due_time: (product.dataValues.due_time * 60),
         payment_options,
+        deliveredDistrict:deliveredDistrict.district,
+        deliveredLocation,
+        bonus:allowedBonus?req.body.bonus:null,
       }
       const result = await createOrders(data);
+      const users = await findAllUsers();
       if(result){
+        // users.map(async (user)=> (
+        //   user.type==='admin'?
+        //   await sendSMS(user.phoneNumber,`The client with ${sessionUser.email} orders the ${quantity} units of ${product.dataValues.name}`):null));
+        
+        // await sendSMS(sessionUser.phoneNumber, `You have ordered ${quantity} units of ${product.dataValues.name} from RICA
+        // The product will be delivered within 3 days`);
+        
         return successResponse(res,created,successCreation,null,result);
       }
     }
     catch(err){
+      console.log(err);
         return errorResponse(res,badRequest,error);
     }
   }

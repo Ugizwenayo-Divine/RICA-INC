@@ -43,9 +43,18 @@ module.exports = {
       payment_options: {
         type: Sequelize.STRING
       },
+      deliveredDistrict: {
+        type: Sequelize.STRING
+      },
+      deliveredLocation: {
+        type: Sequelize.STRING
+      },
+      bonus: {
+        type: Sequelize.STRING
+      },
       status: {
         type: Sequelize.ENUM,
-        values: ['pending','payed','delivered','canceled']
+        values: ['pending','payed','delivered','canceled','discounted']
       },      
       due_time: {
         type: Sequelize.DATE,
@@ -62,5 +71,6 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Orders');
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Orders_status";');
   }
 };

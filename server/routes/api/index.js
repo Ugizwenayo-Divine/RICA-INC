@@ -11,6 +11,7 @@ import historyRouter from './history';
 import refundRouter from './refund';
 import studyRouter from './study';
 import designRouter from './design';
+import locationRouter from './location';
 
 const apiRouter = express.Router();
 
@@ -26,5 +27,6 @@ apiRouter.use('/history', historyRouter);
 apiRouter.use('/refund', refundRouter);
 apiRouter.use('/study', studyRouter);
 apiRouter.use('/design', designRouter);
+apiRouter.use('/location', locationRouter);
 
 export default apiRouter;

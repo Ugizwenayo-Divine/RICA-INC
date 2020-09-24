@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import models from '../models';
 
-const { Orders } = models;
+const { Orders,User } = models;
 const Op = Sequelize.Op;
 
 class OrdersServices {
@@ -23,6 +23,9 @@ class OrdersServices {
         'currency',
         'ordered_quantity',
         'payment_options',
+        'bonus',
+        'deliveredDistrict',
+        'deliveredLocation',
         'status',
         'due_time',
         'createdAt',
@@ -32,7 +35,7 @@ class OrdersServices {
     return dataValues;
   }
   static getAllOrders = async () => {
-    const allOrders = await Orders.findAll();
+    const allOrders = await Orders.findAll({include: User });
     return allOrders;
   }
   static getOrders = async (id) => {
@@ -50,6 +53,7 @@ class OrdersServices {
     return orders;
   }
   static changeOrderStatus = async (order) => {
+    console.log(order,'lll')
     const updatedOrders = await Orders.update(
       { 
         status: order.status,
@@ -86,6 +90,10 @@ class OrdersServices {
   static getAllExpiredOrder = async (id) => {
     const deleted = await Orders.findAll({where: {due_time: { [Op.lt] : new Date()}, productId: id}});
     return deleted;
+  }
+  static getPayedClientOrders = async (id) => {
+    const allOrders = await Orders.findAll({ where: { id: id, status: 'payed' } });
+    return allOrders;
   }
 }
 

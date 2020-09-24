@@ -30,7 +30,7 @@ module.exports = {
       },
       status: {
         type: Sequelize.ENUM,
-        values: ['pending','payed','delivered','canceled']
+        values: ['pending','payed','delivered','canceled','discounted']
       },      
       due_time: {
         type: Sequelize.DATE,
@@ -47,5 +47,6 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Histories');
+    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Histories_status";');
   }
 };

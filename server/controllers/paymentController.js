@@ -6,6 +6,8 @@ import orderHelper from '../helpers/orderHelper';
 import transactionService from '../services/transactionServices';
 import statusCode from '../helpers/statusCode';
 import responseMessage from '../helpers/customMessages';
+import sendNotification from '../helpers/smsNotification';
+import AuthServices from '../services/authServices';
 
 const {
     rwn_mobilemoney,
@@ -42,6 +44,12 @@ const {
   paymentError,
   transactionNotExist,
 } = responseMessage;
+const {
+  sendSMS
+} = sendNotification;
+const {
+  findAllUsers,
+} = AuthServices;
 export default class PaymentController {
 
   static async orderPaymentCreation(req, res) {
@@ -106,8 +114,7 @@ export default class PaymentController {
       return errorResponse(res, badRequest, err.message);          
     }
   }
-    static async verification(req, res) {
-      console.log('Flutterwaveeeeeeeeeeeeeee');     
+    static async verification(req, res) {  
       let transaction_id='';
       transaction_id = req.body.data.id || req.body.transaction_id;
 
@@ -121,9 +128,14 @@ export default class PaymentController {
         }
         if(transaction){
           const {Order} = transaction.dataValues;
+          const users = await findAllUsers();
           if (result.status == 'success' && amount >= Order.dataValues.amount && currency == Order.dataValues.currency){
             await updateStatus(transactionData);
             await clientOrderPayed(Order.dataValues.id);
+            // users.map(async (user)=> (
+            //   user.type==='admin'?
+            //   await sendSMS(user.phoneNumber,`The payment of ${Order.dataValues.amount} RWF is made for ${Order.id} order`):null));
+            // await sendSMS(transaction.dataValues.phone_number, `The payment of ${Order.dataValues.amount} RWF for ${Order.dataValues.product} from RICA is done`);
             return successResponse(res, ok, paymentDone, null, null);
           }
           return errorResponse(res, badRequest, paymentError);
