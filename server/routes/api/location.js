@@ -9,11 +9,13 @@ const {
 const {
     updateTransportPrice,
     allDistricts,
+    allSectors,
 } = LocationController;
 
 const locationRouter = express.Router();
 
 locationRouter.get('/', allDistricts);
+locationRouter.get('/sector', allSectors);
 locationRouter.patch('/:name',isUserLoggedIn,isUserAdmin, updateTransportPrice);
 
 export default locationRouter;

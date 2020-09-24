@@ -25,6 +25,7 @@ class OrdersServices {
         'payment_options',
         'bonus',
         'deliveredDistrict',
+        'deliveredSector',
         'deliveredLocation',
         'status',
         'due_time',

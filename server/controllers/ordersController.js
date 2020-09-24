@@ -54,7 +54,7 @@ class OrdersController {
   static addOrders = async (req,res) => {
     const {sessionUser} = req;
     const {id} = sessionUser;
-    const { productId, quantity, payment_options, deliveredDistrict,deliveredLocation, } = req.body;
+    const { productId, quantity, payment_options, deliveredDistrict,deliveredLocation, deliveredSector} = req.body;
 
     try{
       const product = await getProduct(productId);
@@ -72,6 +72,7 @@ class OrdersController {
         due_time: (product.dataValues.due_time * 60),
         payment_options,
         deliveredDistrict:deliveredDistrict.district,
+        deliveredSector,
         deliveredLocation,
         bonus:allowedBonus?req.body.bonus:null,
       }

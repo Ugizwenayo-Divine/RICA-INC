@@ -1,6 +1,6 @@
 import models from '../models';
 
-const { District } = models;
+const { District,Sector,Neighbourhood } = models;
 
 class LocationServices {
 
@@ -17,5 +17,9 @@ class LocationServices {
     );
     return updated;
   };
+  static getAllSectors = async () => {
+    const allLocation = await Sector.findAll();
+    return allLocation;
+  }
 }
 export default LocationServices;

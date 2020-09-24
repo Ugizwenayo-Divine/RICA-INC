@@ -12,6 +12,7 @@ import refundRouter from './refund';
 import studyRouter from './study';
 import designRouter from './design';
 import locationRouter from './location';
+import bonusRouter from './bonus';
 
 const apiRouter = express.Router();
 
@@ -28,5 +29,6 @@ apiRouter.use('/refund', refundRouter);
 apiRouter.use('/study', studyRouter);
 apiRouter.use('/design', designRouter);
 apiRouter.use('/location', locationRouter);
+apiRouter.use('/bonus',bonusRouter);
 
 export default apiRouter;

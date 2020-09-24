@@ -46,6 +46,9 @@ module.exports = {
       deliveredDistrict: {
         type: Sequelize.STRING
       },
+      deliveredSector: {
+        type: Sequelize.STRING
+      },
       deliveredLocation: {
         type: Sequelize.STRING
       },
