@@ -199,6 +199,21 @@ class OrdersController {
       return errorResponse(res, badRequest, error);
     }
   }
+  static checkBonus = async (req, res) => {
+    const {sessionUser} = req;
+    const {id} = sessionUser;
+    try{
+      const allowedBonus = await allowDiscount({id,amount:0});
+      if(allowedBonus){
+      return successResponse(res, ok, 'Allowed bonus', null, true);
+      }
+      return successResponse(res, ok, 'Not allowed bonus', null, false);
+
+    }
+    catch(error){
+      return errorResponse(res, badRequest, err.message);
+    }
+  }
   
 }
 
