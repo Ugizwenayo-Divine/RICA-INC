@@ -56,22 +56,26 @@ const clientOrderPayed = async (id) => {
     console.log(sum,data.amount);
     if (data.amount>=1000000){
       orders.map(async(order)=>{
+        if(order.status==='payed'){
         const data ={
           id:order.id,
           status:'discounted',
         }
         await changeOrderStatus(data);
+      }
       });
       console.log('allowed discount');
       return true;
     }
     if ((sum + data.amount)>=2000000){
       orders.map(async(order)=>{
+        if(order.status==='payed'){
         const data ={
           id:order.id,
           status:'discounted',
         }
         await changeOrderStatus(data);
+      }
       });
       console.log('allowed discount');    
       return true;  
