@@ -21,5 +21,9 @@ class LocationServices {
     const allLocation = await Sector.findAll();
     return allLocation;
   }
+  static getDistrictSectorS = async (id) => {
+    const allLocation = await Sector.findAll({ where: { districtId:id } });
+    return allLocation;
+  }
 }
 export default LocationServices;

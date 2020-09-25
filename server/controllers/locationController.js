@@ -10,7 +10,7 @@ const {
 const {
   getAllDistricts,
   updateDistrict,
-  getAllNeighbourhoods,
+  getDistrictSectorS,
   getAllSectors
 } = LocationService;
 
@@ -46,6 +46,15 @@ export default class FeedbackController {
     }
     catch(err){
       return errorResponse(res,badRequest,err.message); 
+    }
+  };
+  static getSectorsByDistrict = async (req, res) => {
+    const {id} = req.params;
+    try {
+      const locations = await getDistrictSectorS(id);
+      return successResponse(res, ok, 'All locations', null, locations);
+    } catch (error) {
+      return errorResponse(res, badRequest, error);
     }
   };
 }
