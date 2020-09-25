@@ -32,7 +32,7 @@ export default class FeedbackController {
         feedback: req.body.feedback,
       };
       const createdData = await createFeedback(data);
-      if(createFeedback){
+      if(createdData){
         return successResponse(res, created, customMessages.created, null, createdData);
       }
       return errorResponse(res,badRequest,notCreated);

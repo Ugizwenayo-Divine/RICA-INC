@@ -10,6 +10,8 @@ const {
 const {
   getAllDistricts,
   updateDistrict,
+  getAllNeighbourhoods,
+  getAllSectors
 } = LocationService;
 
 export default class FeedbackController {
@@ -32,6 +34,15 @@ export default class FeedbackController {
     try{
       const districts = await getAllDistricts();
       return responseHandlers.successResponse(res, ok, 'All districts', null,districts);
+    }
+    catch(err){
+      return errorResponse(res,badRequest,err.message); 
+    }
+  };
+  static allSectors = async (req, res) => {
+    try{
+      const districts = await getAllSectors();
+      return responseHandlers.successResponse(res, ok, 'All Sectors', null,districts);
     }
     catch(err){
       return errorResponse(res,badRequest,err.message); 
