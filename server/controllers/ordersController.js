@@ -79,12 +79,12 @@ class OrdersController {
       const result = await createOrders(data);
       const users = await findAllUsers();
       if(result){
-        // users.map(async (user)=> (
-        //   user.type==='admin'?
-        //   await sendSMS(user.phoneNumber,`The client with ${sessionUser.email} orders the ${quantity} units of ${product.dataValues.name}`):null));
+        users.map(async (user)=> (
+          user.type==='admin'?
+          await sendSMS(user.phoneNumber,`The client with ${sessionUser.email} orders the ${quantity} units of ${product.dataValues.name}`):null));
         
-        // await sendSMS(sessionUser.phoneNumber, `You have ordered ${quantity} units of ${product.dataValues.name} from RICA
-        // The product will be delivered within 3 days`);
+        await sendSMS(sessionUser.phoneNumber, `You have ordered ${quantity} units of ${product.dataValues.name} from RICA
+        The product will be delivered within 3 days`);
         
         return successResponse(res,created,successCreation,null,result);
       }

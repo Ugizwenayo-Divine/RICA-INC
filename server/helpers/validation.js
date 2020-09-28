@@ -43,10 +43,10 @@ const displayErrorMessages = (error, res, next) => {
 };
 const validateSignup = (user) => {
   const schema = Joi.object({
-    firstName: validationMethods(/^([a-zA-Z]{3,})+$/, {
+    firstName: validationMethods(/^(.{3,})+$/, {
       'string.pattern.base': `${invalidFirstname}`,
     }),
-    lastName: validationMethods(/^([a-zA-Z]{3,})+$/, {
+    lastName: validationMethods(/^(.{3,})+$/, {
       'string.pattern.base': `${invalidLastname}`,
     }),
     email: validationMethods(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, {
@@ -96,10 +96,10 @@ const validateRole = (data) => {
 };
 const validateNews = (data) => {
   const schema = Joi.object({
-    title: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    title: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': invalidTitle,
     }),
-    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    description: validationMethods(/(.*)/s, {
       'string.pattern.base': invalidDescription,
     }),
   });
@@ -110,10 +110,10 @@ const validateNews = (data) => {
 };
 const validateProducts = (data) => {
   const schema = Joi.object({
-    name: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    name: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': `${invalidName}`,
     }),
-    category: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    category: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': `${invalidCategory}`,
     }),
     price: validationMethods(/^\d+(?:[.,]\d+)*$/, {
@@ -122,7 +122,7 @@ const validateProducts = (data) => {
     quantity: validationMethods(/^\d+$/, {
       'string.pattern.base': `${invalidQuantity}`,
     }),
-    brand: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    brand: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': `${invalidBrand}`,
     }),
     due_time: validationMethods(/^\d+$/, {
@@ -136,7 +136,7 @@ const validateProducts = (data) => {
 };
 const validateSearchName = (data) => {
   const schema = Joi.object({
-    name: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    name: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': `${invalidName}`,
     }),
   });
@@ -147,7 +147,7 @@ const validateSearchName = (data) => {
 };
 const validateSearchCategory = (data) => {
   const schema = Joi.object({
-    category: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    category: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': `${invalidName}`,
     }),
   });
@@ -158,16 +158,16 @@ const validateSearchCategory = (data) => {
 };
 const validateAdvertisement = (data) => {
   const schema = Joi.object({
-    title: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    title: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': invalidTitle,
     }),
-    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    description: validationMethods(/(.*)/s, {
       'string.pattern.base': invalidDescription,
     }),
     type: validationMethods(/^internal$|^Internal$|^external$|^External$/, {
       'string.pattern.base': `${invalidAdverType}`,
     }),
-    advertisingCompany: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    advertisingCompany: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': invalidAdvertCompany,
     }),
   });
@@ -178,7 +178,7 @@ const validateAdvertisement = (data) => {
 };
 const validateFeedback = (data) => {
   const schema = Joi.object({
-    feedback: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    feedback: validationMethods(/(.*)/s, {
       'string.pattern.base': invalidDescription,
     }),
   });
@@ -189,10 +189,10 @@ const validateFeedback = (data) => {
 };
 const validateAnnouncement = (data) => {
   const schema = Joi.object({
-    title: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    title: validationMethods(/^(.{1,})+$/, {
       'string.pattern.base': `${invalidTitle}`,
     }),
-    announcement: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    announcement: validationMethods(/(.*)/s, {
       'string.pattern.base': `${invalidAnnouncement}`,
     }),
   });
@@ -217,7 +217,7 @@ const validateOrder = (data) => {
 };
 const validateRefund = (data) => {
   const schema = Joi.object({
-    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{1,})+$/, {
+    description: validationMethods(/(.*)/s, {
       'string.pattern.base': `${invalidDescription}`,
     }),
   });
@@ -261,7 +261,7 @@ const validateRefundStatus = (data) => {
 };
 const validateAnySearch = (data) => {
   const schema = Joi.object({
-    search: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?-]{3,})+$/, {
+    search: validationMethods(/^(.{3,})+$/, {
       'string.pattern.base': `${invalidName}`,
     }),
   });
@@ -274,7 +274,7 @@ const validateConsultant = (data) => {
   console.log(data,'datatt')
   const schema = Joi.object({
 
-    description: validationMethods(/^([a-zA-Z0-9_ ",;.:'!@#$%^&*?)(-]{1,})+$/, {
+    description: validationMethods(/(.*)/s, {
       'string.pattern.base': invalidDescription,
     }),
   });
