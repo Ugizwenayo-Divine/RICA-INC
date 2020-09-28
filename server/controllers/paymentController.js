@@ -132,10 +132,10 @@ export default class PaymentController {
           if (result.status == 'success' && amount >= Order.dataValues.amount && currency == Order.dataValues.currency){
             await updateStatus(transactionData);
             await clientOrderPayed(Order.dataValues.id);
-            // users.map(async (user)=> (
-            //   user.type==='admin'?
-            //   await sendSMS(user.phoneNumber,`The payment of ${Order.dataValues.amount} RWF is made for ${Order.id} order`):null));
-            // await sendSMS(transaction.dataValues.phone_number, `The payment of ${Order.dataValues.amount} RWF for ${Order.dataValues.product} from RICA is done`);
+            users.map(async (user)=> (
+              user.type==='admin'?
+              await sendSMS(user.phoneNumber,`The payment of ${Order.dataValues.amount} RWF is made for ${Order.id} order`):null));
+            await sendSMS(transaction.dataValues.phone_number, `The payment of ${Order.dataValues.amount} RWF for ${Order.dataValues.product} from RICA is done`);
             return successResponse(res, ok, paymentDone, null, null);
           }
           return errorResponse(res, badRequest, paymentError);
