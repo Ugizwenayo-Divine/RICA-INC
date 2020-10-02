@@ -47,6 +47,6 @@ module.exports = {
   },
   down: async (queryInterface, Sequelize) => {
     await queryInterface.dropTable('Histories');
-    await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Histories_status";');
+    // await queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Histories_status";');
   }
 };
