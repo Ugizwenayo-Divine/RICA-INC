@@ -10,7 +10,7 @@ module.exports = {
       },
       token: {
         type: Sequelize.TEXT,
-        unique:true
+        unique:false
       },
       createdAt: {
         allowNull: false,
