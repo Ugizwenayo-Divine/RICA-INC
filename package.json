@@ -50,7 +50,8 @@
     "undo": "npx sequelize-cli db:migrate:undo:all",
     "seed": "npx sequelize-cli db:seed:all",
     "undo-seed": "npx sequelize-cli db:seed:undo:all",
-    "momo": "cross-env NODE_ENV=development && babel-node ./server/payment/momoPayment.js"
+    "momo": "cross-env NODE_ENV=development && babel-node ./server/payment/momoPayment.js",
+    "build": "babel server -d public"
   },
   "repository": {
     "type": "git",
