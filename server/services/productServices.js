@@ -89,7 +89,17 @@ class ProductHelper {
   static findByNameCategoryBrand = async (value) => {
     let product = await Product.findAll({
       where: { 
-        [Op.or]:[{name: {[Op.iLike]:`%${value}%`} },{category:{[Op.iLike]:`%${value}%`}},{brand:{[Op.iLike]:`%${value}%`}}],
+        [Op.or]:[ 
+          Sequelize.where(Sequelize.fn('lower', Sequelize.col('name')),{
+            [Op.like]: `%${value.toLowerCase()}%`
+          }),
+          Sequelize.where(Sequelize.fn('lower', Sequelize.col('brand')),{
+            [Op.like]: `%${value.toLowerCase()}%`
+          }),
+          Sequelize.where(Sequelize.fn('lower', Sequelize.col('category')),{
+            [Op.like]: `%${value.toLowerCase()}%`
+          }),
+        ]
       }
     });
     return product;

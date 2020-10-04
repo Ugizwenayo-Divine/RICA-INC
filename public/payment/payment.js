@@ -52,7 +52,7 @@ var rwn_mobilemoney = /*#__PURE__*/function () {
                 // "callback": function (data) { // specified callback function
                 //   console.log(data);
                 // },
-                "redirect_url": "http://localhost:3000/displayclientorders"
+                "redirect_url": "https://ricainc.co.com/displayclientorders"
               })
             }).then(function (response) {
               return response.json();
@@ -143,7 +143,7 @@ var cardPayment = /*#__PURE__*/function () {
                 "tx_ref": transaction.id,
                 "amount": data.amount,
                 "currency": data.currency,
-                "redirect_url": "http://localhost:3000/displayclientorders",
+                "redirect_url": "https://ricainc.co.com/displayclientorders",
                 "payment_options": userData.type,
                 "meta": {
                   "consumer_id": userData.transactedBy,
