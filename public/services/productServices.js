@@ -411,13 +411,7 @@ var ProductHelper = /*#__PURE__*/function () {
           case 0:
             _context13.next = 2;
             return Product.findAll({
-              where: (0, _defineProperty2["default"])({}, Op.or, [{
-                name: (0, _defineProperty2["default"])({}, Op.iLike, "%".concat(value, "%"))
-              }, {
-                category: (0, _defineProperty2["default"])({}, Op.iLike, "%".concat(value, "%"))
-              }, {
-                brand: (0, _defineProperty2["default"])({}, Op.iLike, "%".concat(value, "%"))
-              }])
+              where: (0, _defineProperty2["default"])({}, Op.or, [_sequelize["default"].where(_sequelize["default"].fn('lower', _sequelize["default"].col('name')), (0, _defineProperty2["default"])({}, Op.like, "%".concat(value.toLowerCase(), "%"))), _sequelize["default"].where(_sequelize["default"].fn('lower', _sequelize["default"].col('brand')), (0, _defineProperty2["default"])({}, Op.like, "%".concat(value.toLowerCase(), "%"))), _sequelize["default"].where(_sequelize["default"].fn('lower', _sequelize["default"].col('category')), (0, _defineProperty2["default"])({}, Op.like, "%".concat(value.toLowerCase(), "%")))])
             });
 
           case 2:

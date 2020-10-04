@@ -7,13 +7,13 @@ dotenv.config();
 const { passwordHasher } = authHelpers;
 const { User } = models;
 const admin = {
-  firstName: 'Manzi',
-  lastName: 'Guevara',
-  email: 'manziguevara@gmail.com',
+  firstName: 'Elie',
+  lastName: 'Tuyishime',
+  email: 'elietu@gmail.com',
   gender: 'male',
   password: process.env.ADMIN_PASSWORD,
   type: 'admin',
-  phoneNumber: '0788547962',
+  phoneNumber: '0781825085',
   createdAt: new Date(),
   updatedAt: new Date(),
 };
