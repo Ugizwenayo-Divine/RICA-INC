@@ -85,7 +85,7 @@ var NewsController = function NewsController() {
             return _context.abrupt("return", errorResponse(res, badRequest, selectImage));
 
           case 12:
-            if (!(!image.url || image.url.includes('null'))) {
+            if (!(!image.secure_url || image.secure_url.includes('null'))) {
               _context.next = 16;
               break;
             }
@@ -100,7 +100,7 @@ var NewsController = function NewsController() {
               userId: id,
               title: title,
               description: description,
-              image: image.url,
+              image: image.secure_url,
               cloudinaryId: image.public_id
             };
             _context.next = 20;
@@ -236,7 +236,7 @@ var NewsController = function NewsController() {
 }());
 (0, _defineProperty2["default"])(NewsController, "newsUpdation", /*#__PURE__*/function () {
   var _ref5 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(req, res) {
-    var image, id, imageUrl, imageId, _news3, _image, url, public_id, newData;
+    var image, id, imageUrl, imageId, _news3, _image, secure_url, public_id, newData;
 
     return _regenerator["default"].wrap(function _callee5$(_context5) {
       while (1) {
@@ -262,7 +262,7 @@ var NewsController = function NewsController() {
           case 9:
             image = _context5.sent;
 
-            if (!(!image || image.url.includes('null'))) {
+            if (!(!image || image.secure_url.includes('null'))) {
               _context5.next = 12;
               break;
             }
@@ -270,8 +270,8 @@ var NewsController = function NewsController() {
             return _context5.abrupt("return", errorResponse(res, unSupportedMedia, wrongType));
 
           case 12:
-            _image = image, url = _image.url, public_id = _image.public_id;
-            imageUrl = url;
+            _image = image, secure_url = _image.secure_url, public_id = _image.public_id;
+            imageUrl = secure_url;
             imageId = public_id;
 
           case 15:

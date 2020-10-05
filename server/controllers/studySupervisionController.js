@@ -46,14 +46,14 @@ class StudySupervisionController {
           return errorResponse(res, badRequest, selectImage);
         }
 
-        if (!image.url || image.url.includes('null')) {
+        if (!image.secure_url || image.secure_url.includes('null')) {
           return errorResponse(res, unSupportedMedia, wrongType);
         } else null;
         console.log('user',id);
         const data = {
           studyBy:id,
           description,
-          image:image.url,
+          image:image.secure_url,
           cloudinaryId:image.public_id,
         }
         const result = await createStudySupervision(data);
@@ -110,11 +110,11 @@ class StudySupervisionController {
 
         await uploadTheImage.deleteTheImage(study.cloudinaryId);
         image = await uploadTheImage.uploader(req.files.image);
-        if (!image || image.url.includes('null')) {
+        if (!image || image.secure_url.includes('null')) {
           return errorResponse(res, unSupportedMedia, wrongType);
         }
-        const {url, public_id} = image;
-        imageUrl = url;
+        const {secure_url, public_id} = image;
+        imageUrl = secure_url;
         imageId = public_id;
       }
       const newData = {

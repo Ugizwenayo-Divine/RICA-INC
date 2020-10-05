@@ -28,6 +28,7 @@ class ProductController {
         let image;
         if (req.files.image.type || req.files.image.length) {
           image = await picture.uploader(req.files.image);
+          console.log(image, 'image des')
         } else {
           return res.status(400).json({
             status: 400,
@@ -35,7 +36,7 @@ class ProductController {
           });
         }
 
-        if (!image || image.url.includes('null')) {
+        if (!image || image.secure_url.includes('null')) {
           return res.status(415).json({
             status: 415,
             error: 'Please select the right type of image',
@@ -48,7 +49,7 @@ class ProductController {
           category,
           price: `${price} RWF`,
           quantity,
-          image: image.url,
+          image: image.secure_url,
           brand,
           description,
           due_time,
@@ -142,11 +143,11 @@ class ProductController {
       if (req.files && req.files.image) {
         await picture.deleteTheImage(products.cloudinaryId);
         image = await picture.uploader(req.files.image);
-        if (!image || image.url.includes('null')) {
+        if (!image || image.secure_url.includes('null')) {
           return errorResponse(res, unSupportedMedia, wrongType);
         }
-        const { url, public_id } = image;
-        imageUrl = url;
+        const { secure_url, public_id } = image;
+        imageUrl = secure_url;
         imageId = public_id;
       }
       const newData = {

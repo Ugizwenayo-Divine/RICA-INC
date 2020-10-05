@@ -62,12 +62,12 @@ var ProductController = /*#__PURE__*/function () {
                 _context.prev = 2;
 
                 if (!(req.files && req.files.image)) {
-                  _context.next = 21;
+                  _context.next = 22;
                   break;
                 }
 
                 if (!(req.files.image.type || req.files.image.length)) {
-                  _context.next = 10;
+                  _context.next = 11;
                   break;
                 }
 
@@ -76,18 +76,19 @@ var ProductController = /*#__PURE__*/function () {
 
               case 7:
                 image = _context.sent;
-                _context.next = 11;
+                console.log(image, 'image des');
+                _context.next = 12;
                 break;
 
-              case 10:
+              case 11:
                 return _context.abrupt("return", res.status(400).json({
                   status: 400,
                   error: 'Please select atleast one image'
                 }));
 
-              case 11:
-                if (!(!image || image.url.includes('null'))) {
-                  _context.next = 15;
+              case 12:
+                if (!(!image || image.secure_url.includes('null'))) {
+                  _context.next = 16;
                   break;
                 }
 
@@ -96,26 +97,26 @@ var ProductController = /*#__PURE__*/function () {
                   error: 'Please select the right type of image'
                 }));
 
-              case 15:
+              case 16:
                 null;
 
-              case 16:
+              case 17:
                 _req$body = req.body, name = _req$body.name, category = _req$body.category, price = _req$body.price, brand = _req$body.brand, due_time = _req$body.due_time, quantity = _req$body.quantity, description = _req$body.description;
-                _context.next = 19;
+                _context.next = 20;
                 return _productServices["default"].saveProduct({
                   userId: id,
                   name: name,
                   category: category,
                   price: "".concat(price, " RWF"),
                   quantity: quantity,
-                  image: image.url,
+                  image: image.secure_url,
                   brand: brand,
                   description: description,
                   due_time: due_time,
                   cloudinaryId: image.public_id
                 });
 
-              case 19:
+              case 20:
                 datas = _context.sent;
                 return _context.abrupt("return", res.status(201).json({
                   status: 201,
@@ -123,14 +124,14 @@ var ProductController = /*#__PURE__*/function () {
                   data: datas
                 }));
 
-              case 21:
+              case 22:
                 return _context.abrupt("return", res.status(401).json({
                   status: 401,
                   error: 'Please select one or more images'
                 }));
 
-              case 24:
-                _context.prev = 24;
+              case 25:
+                _context.prev = 25;
                 _context.t0 = _context["catch"](2);
                 console.log(_context.t0);
                 return _context.abrupt("return", res.status(500).json({
@@ -138,12 +139,12 @@ var ProductController = /*#__PURE__*/function () {
                   message: _context.t0.message
                 }));
 
-              case 28:
+              case 29:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 24]]);
+        }, _callee, null, [[2, 25]]);
       }));
 
       function addProduct(_x, _x2) {
@@ -358,7 +359,7 @@ var ProductController = /*#__PURE__*/function () {
 }());
 (0, _defineProperty2["default"])(ProductController, "productUpdation", /*#__PURE__*/function () {
   var _ref6 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(req, res) {
-    var image, id, imageUrl, imageId, _products3, _image, url, public_id, newData;
+    var image, id, imageUrl, imageId, _products3, _image, secure_url, public_id, newData;
 
     return _regenerator["default"].wrap(function _callee7$(_context7) {
       while (1) {
@@ -384,7 +385,7 @@ var ProductController = /*#__PURE__*/function () {
           case 9:
             image = _context7.sent;
 
-            if (!(!image || image.url.includes('null'))) {
+            if (!(!image || image.secure_url.includes('null'))) {
               _context7.next = 12;
               break;
             }
@@ -392,8 +393,8 @@ var ProductController = /*#__PURE__*/function () {
             return _context7.abrupt("return", errorResponse(res, unSupportedMedia, wrongType));
 
           case 12:
-            _image = image, url = _image.url, public_id = _image.public_id;
-            imageUrl = url;
+            _image = image, secure_url = _image.secure_url, public_id = _image.public_id;
+            imageUrl = secure_url;
             imageId = public_id;
 
           case 15:
