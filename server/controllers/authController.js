@@ -5,19 +5,23 @@ import authHelpers from '../helpers/authHelper';
 import statusCodes from '../helpers/statusCode';
 import customMessages from '../helpers/customMessages';
 import TokenServices from '../services/tokenServices';
+import { resetMessage, changedMessage } from '../helpers/emailMessage';
+import sendMail from '../helpers/email';
 
-const { successResponse, errorResponse } = responseHandlers;
+const { successResponse, errorResponse, updatedResponse } = responseHandlers;
 const {
     saveUser,
     userExists,
     updateType,
     deleteUser,
     findAllUsers,
+    updateUserPassword
 } = UserService;
 const {
     generateToken,
     passwordHasher,
-    convertToLowerCase
+    convertToLowerCase,
+    decodeToken
 } = authHelpers;
 const {
 alreadyExistEmailOrUsername,
@@ -61,6 +65,37 @@ export default class AuthenticationController {
     catch(err){
       errorResponse(res, badRequest, err.message);
     } 
+  }
+  static async sendResetEmail(req, res) {
+    const { email } = req.body;
+    const {
+      intro, instruction, text
+    } = resetMessage;
+      const users = await userExists('email', email.toLowerCase());
+      if (users) {
+        const user = users.dataValues;
+        const token = await generateToken(user);
+        const url = `http://localhost:3001/updatepassword`;
+        await sendMail(user.email, user.firstName, intro, instruction, text, url);
+        return successResponse(res, statusCodes.ok, customMessages.resetEmail, token);
+      }
+      return errorResponse(res, statusCodes.forbidden, customMessages.notExistUser);
+  }
+
+  static async updatePassword(req, res) {
+    const { token } = req.params;
+    const { password } = req.body;
+    const {
+      intro, instruction, text
+    } = changedMessage;
+
+    const userDetails = await decodeToken(token);
+    const users = await userExists('email', userDetails.email.toLowerCase());
+    const user = users.dataValues;
+    const hashed = await passwordHasher(password);
+    await updateUserPassword(hashed, user.id);
+    await sendMail(user.email, user.firstName, intro, instruction, text, '#');
+    return updatedResponse(res, statusCodes.ok, customMessages.changed);
   }
   static userLogin = async (req, res) => {
     const { loginUser } = req;

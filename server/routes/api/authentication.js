@@ -10,17 +10,22 @@ const {
   userDeletion,
   allUsers,
   userLogout,
+  updatePassword,
+  sendResetEmail
 } = authController;
 const {
   isUserAdmin,
   isUserLoggedIn,
   doesUserExist,
+  verifyToken
 } = userAuthentication;
 const {
   loginValidation,
   signupValidation,
   checkUserExistance,
-  roleValidation
+  roleValidation,
+  validateResetEmail,
+  passwordValidation
 } = authMiddlewares;
 const authenticationRouter = express.Router();
 
@@ -30,5 +35,7 @@ authenticationRouter.patch('/update-user',isUserLoggedIn, isUserAdmin, roleValid
 authenticationRouter.delete('/delete-user/:id',isUserLoggedIn, isUserAdmin, doesUserExist, userDeletion);
 authenticationRouter.get('/all',isUserLoggedIn, isUserAdmin, allUsers);
 authenticationRouter.get('/logout',isUserLoggedIn, userLogout);
+authenticationRouter.post('/resetpassword', validateResetEmail, sendResetEmail);
+authenticationRouter.post('/resetpassword/:token', passwordValidation, verifyToken, updatePassword);
 
 export default authenticationRouter;

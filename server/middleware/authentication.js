@@ -62,4 +62,14 @@ const doesUserExist = async (req, res, next) => {
   return next();
 };
 
-export default { isUserLoggedIn, isUserAdmin, doesUserExist };
+const verifyToken = async (req, res, next) => {
+  try {
+    const { token } = req.params;
+    await decodeToken(token);
+    next();
+  } catch (error) {
+    return errorResponse(res, statusCodes.badRequest, customMsg.tokenInvalid);
+  }
+};
+
+export default { isUserLoggedIn, isUserAdmin, doesUserExist, verifyToken };

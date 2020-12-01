@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import _ from 'lodash';
-import { validateSignup, displayErrorMessages, validateLogin, validateRole } from '../helpers/validation';
+import Joi from '@hapi/joi';
+import { validateSignup, displayErrorMessages, validateLogin, validateRole, validatePassword } from '../helpers/validation';
 import userService from '../services/authServices';
 import responseHandler from '../helpers/responseHandler';
 import statusCodes from '../helpers/statusCode';
@@ -51,5 +52,31 @@ const roleValidation = async (req, res, next) => {
   const { error } = validateRole(req.body);
   displayErrorMessages(error, res, next);
 };
-
-export default { signupValidation, checkUserExistance, loginValidation, roleValidation  };
+const passwordValidation = async (req, res, next) => {
+  const { error } = validatePassword(req.body);
+  if (error) {
+    return errorResponse(res, statusCodes.badRequest, responseMessage.invalidPassword);
+  }
+  return next();
+};
+const validateResetEmail = (req, res, next) => {
+  const email = req.body;
+  const schema = Joi.object({
+    email: Joi.string().trim().email().required()
+  });
+  const { error } = schema.validate(email, {
+    abortEarly: false
+  });
+  if (error) {
+    return errorResponse(res, statusCodes.badRequest, responseMessage.invalidEmail);
+  }
+  next();
+};
+export default { 
+  signupValidation, 
+  checkUserExistance, 
+  loginValidation, 
+  roleValidation,
+  passwordValidation,
+  validateResetEmail,
+};

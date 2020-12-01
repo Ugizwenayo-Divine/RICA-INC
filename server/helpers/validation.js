@@ -283,6 +283,15 @@ const validateConsultant = (data) => {
     allowUnknown: true,
   });
 };
+const validatePassword = password => {
+  const schema = Joi.object({
+    password: validationMethods(/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*?])[0-9a-zA-Z!@#$%^&*?]{8,}$/, { 'string.pattern.base': `${customMessages.invalidPassword}` })
+  });
+  return schema.validate(password, {
+    abortEarly: false,
+    allowUnknown: true
+  });
+};
 
 export {
   displayErrorMessages,
@@ -303,4 +312,5 @@ export {
   validateRefundStatus,
   validateAnySearch,
   validateConsultant,
+  validatePassword
 };

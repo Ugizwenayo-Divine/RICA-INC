@@ -51,6 +51,17 @@ class UserServices {
     const allUsers = await User.findAll();
     return allUsers;
   }
+    static updateUserPassword = async (password, id) => {
+    const updatedUser = await User.update(
+      {
+        password: password
+      },
+      {
+        where: { id:id }
+      }
+    );
+    return updatedUser;
+  }
 
 }
 export default UserServices;
